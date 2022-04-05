@@ -25,6 +25,13 @@ With the `0x` prefix, Python can distinguish hex and decimal automatically.
 ```
 (You must specify 0 as the base in order to invoke this prefix-guessing behavior; if you omit the second parameter int() will assume base-10.)
 
+## Deque
+### Slicing deque
+Try `itertools.islice()`.
+```
+deque_slice = collections.deque(itertools.islice(my_deque, 10, 20))
+```
+Indexing into a deque requires following a linked list from the beginning each time, so the `islice()` approach, skipping items to get to the start of the slice, will give the best possible performance (better than coding it as an index operation for each element).
 
 # Methods 
 ## staticmethods and classmethods
