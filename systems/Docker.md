@@ -289,6 +289,54 @@ In term of lifecycle, you are supposed to stop the container first, then remove 
 # Dockerfile
 Here we use a `Dockerfile` example.
 
+Take the following example:
+```
+# syntax=docker/dockerfile:1
+FROM python:3.7-alpine
+WORKDIR /code
+ENV FLASK_APP=app.py
+ENV FLASK_RUN_HOST=0.0.0.0
+RUN apk add --no-cache gcc musl-dev linux-headers
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt
+EXPOSE 5000
+COPY . .
+CMD ["flask", "run"]
+```
+
+This tells Docker to:
+- Build an image starting with the Python 3.7 image.
+- Set the working directory to `/code`.
+- Set environment variables used by the flask command.
+- Install `gcc` and other dependencies
+- Copy `requirements.txt` and install the Python dependencies.
+- Add metadata to the image to describe that the container is listening on port `5000`
+- Copy the current directory `.` in the project to the workdir `.` in the image.
+- Set the default command for the container to flask run. (By default, we run flask command as `flask run`)
+
+Once `Dockerfile` has been created, we keep it in the same directory as our project. This ensures that the `COPY . .` copy all files to the working directory inside the container. Also, we would be already inside our project directory when we would be running so we can build the image easily.
+
+Run the following command:
+```
+docker build -t <container-image-name> .
+```
+
+This command used the Dockerfile to build a new container image. You might have noticed that a lot of “layers” were downloaded. This is because we instructed the builder that we wanted to start from the `python:3.7-alpine` image. But, since we didn’t have that on our machine, that image needed to be downloaded.
+
+After the image was downloaded, we copied in our application and used `RUN` to install our application’s dependencies. The `CMD` directive specifies the default command to run when starting a container from this image.
+
+Finally, the `-t` flag tags our image. Think of this simply as a human-readable name for the final image. Since we named the image `<container-image-name>`, we can refer to that image when we run a container.
+
+The `.` at the end of the docker build command tells that Docker should look for the Dockerfile in the current directory.
+
+Start your container using the `docker run` command and specify the name of the image we just created:
+```
+docker run -dp 3000:3000 <container-image-name>
+```
+Remember the `-d` and `-p` flags? We’re running the new container in “detached” mode (in the background) and creating a mapping between the host’s port 3000 to the container’s port 3000. Without the port mapping, we wouldn’t be able to access the application.
+
+After a few seconds, open your web browser to http://localhost:3000. You should see our app.
+
 
 # Docker Compose
 Here is how an example `Docker Compose` file will look like. The file will create a persistent MySQL database so that we can reuse data.
@@ -317,10 +365,74 @@ Here’s the explanation:
 - `ports`, this port will be used to map your container host to your host port (in this case, your linux server port).
 - `volumes`, we will store persist mysql data from container filesystem /var/lib/mysql. So, whenever mysql container is restarted or stopped, the data won’t be erased.
 
-Save the file then run docker-compose up in detached mode in `docker-compose.yml` directory.
+Save the file then run `docker-compose up` in **detached mode** in the same directory as `docker-compose.yml`.
 ```
 docker-compose up -d
 ```
+
+## Commands available
+**Starting service**: If you want to run your services in the background, you can pass the `-d` flag (for “detached” mode) to `docker-compose up` 
+```
+docker-compose up -d
+```
+Reason you want to run the containers in detached mode is because you can do more things in the terminal window.
+
+**Check running containers**: Use `docker-compose ps` to see what is currently running
+```
+$ docker-compose ps
+
+       Name                      Command               State           Ports         
+-------------------------------------------------------------------------------------
+composetest_redis_1   docker-entrypoint.sh redis ...   Up      6379/tcp              
+composetest_web_1     flask run                        Up      0.0.0.0:8000->5000/tcp
+```
+
+**Run commands inside your containers**: The `docker-compose run` command allows you to run one-off commands for your services. For example, to see what environment variables are available to the `web` service:
+```
+docker-compose run web env
+```
+
+**Stopping services**: If you started Compose with `docker-compose up -d`, stop your services once you’ve finished with them:
+```
+docker-compose stop
+```
+
+**Removing containers**: You can bring everything down, removing the containers entirely, with the `down` command. Pass `--volumes` to also remove the data volume used by any container:
+```
+docker-compose down --volumes
+```
+
+> **Note**:
+> Remember, we can create a image with a Dockerfile and use that image in the `services` section of the `docker-compose.yml`. Docker Compose services is not limited to existing ones. 
+
+# Technical details
+## Difference between Dockerfile ENV and Docker compose environments
+Environment variable defined in Dockerfile will not only be used in `docker build`, it will also persist into the container. This means if you did not set `-e` when `docker run`, it will still have environment variable same as defined in Dockerfile, while environment variable defined in `docker-compose.yaml` is just used for `docker run`.
+
+Maybe next example could make you understand more clear:
+
+Dockerfile:
+```
+FROM alpine
+ENV http_proxy http://123
+```
+
+docker-compose.yaml:
+```
+app:
+  environment:
+    - http_proxy=http://123
+```
+
+If you define environment variable in Dockerfile, all containers used this image will also have the `http_proxy` as http://123. But the real life situation maybe when you build the image, you need this proxy. But, the container maybe run by other people and maybe they don't need this proxy or just have another `http_proxy`, so they have to remove the `http_proxy` in entrypoint or just change to another value in `docker-compose.yaml`.
+
+If you define environment variable in `docker-compose.yaml`, then user could just choose his own `http_proxy` when do `docker-compose up`, `http_proxy` will not be set if user did not configure it `docker-compose.yaml`.
+
+## ENV vs ARG
+ENV is for future running containers. ARG for building your Docker image.
+
+## Environment variable
+asd
 
 # Specific Docker container examples
 ## MySQL
@@ -403,4 +515,68 @@ If you prefer to use GUI Tools such as MySQL Workbench, you can connect it with 
 - Username: root (or using other user)
 - Password: root (your root password)
 
+## Web application with Flask and Redis
+We keep the following 2 files in our project directory:
+- `Dockerfile`
+- `docker-compose.yml`
 
+We save a `Dockerfile` first as follows:
+```
+# syntax=docker/dockerfile:1
+FROM python:3.7-alpine
+WORKDIR /code
+ENV FLASK_APP=app.py
+ENV FLASK_RUN_HOST=0.0.0.0
+RUN apk add --no-cache gcc musl-dev linux-headers
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt
+EXPOSE 5000
+COPY . .
+CMD ["flask", "run"]
+```
+
+Next, we create a Docker Compose file:
+```
+version: "3.9"
+services:
+  web:
+    build: .
+    ports:
+      - "8000:5000"
+    volumes:
+      - .:/code
+    environment:
+      FLASK_ENV: development
+  redis:
+    image: "redis:alpine"
+```
+
+The `web` service uses an image that’s built from the `Dockerfile` in the current directory. It then binds the container and the host machine to the exposed port, 8000. This example service uses the default port for the Flask web server, 5000. So, in our browser, we would see the service at http://localhost:8000/
+
+The `volumes` key mounts the project directory (current directory) on the host to `/code` inside the container, allowing you to modify the code on the fly, without having to rebuild the image. The `environment` key sets the `FLASK_ENV` environment variable, which tells flask run to run in `development` mode and reload the code on change. This mode should only be used in development. `FLASK_ENV` is a Flask specific variable to run the application debug mode (meaning more verbose error messages and application need not restart to check new changes, as in dynamic changes will be visible). 
+
+## Kafka
+Sample Docker compose
+```
+version: '2'
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper:3.4.6
+    ports:
+     - "2181:2181"
+  kafka:
+    image: wurstmeister/kafka
+    ports:
+     - "9092:9092"
+    expose:
+     - "9093"
+    environment:
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka:9093,OUTSIDE://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+      KAFKA_LISTENERS: INSIDE://0.0.0.0:9093,OUTSIDE://0.0.0.0:9092
+      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_CREATE_TOPICS: "topic_test:1:1"
+    volumes:
+     - /var/run/docker.sock:/var/run/docker.sock
+```
