@@ -1,6 +1,64 @@
 # Docker
 Think about a container as a “lightweight virtual machine”. Unlike virtual machines though, containers do not require an entire operating system, all required ibraries and the actual application binaries. The same Linux kernel and libraries can be shared between multiple containers running on the host. Docker makes it easy to package Linux software in self-contained images, where all software dependencies are bundled and deployed in a repeatable manner. An image will have exactly the same software installed, whether we run it on a laptop or on a server. The key benefit of Docker is that it allows users to package an application with all of its dependencies into a standardized unit (container). Running many containers allows each one to focus on a specific task; multiple containers then work in concert to implement a distributed system.
 
+## Build Docker image:
+The command for creating an image from a Dockerfile is `docker build`.
+```
+docker build .
+```
+
+When you have many images, it becomes difficult to know which image is what. Docker provides a way to tag your images with friendly names of your choosing. This is known as tagging.
+```
+docker build -t yourusername/repository-name .
+```
+
+Let’s proceed to tag the Docker image of an example app:
+```
+docker build -t yourusername/example-node-app
+```
+
+If you run the command above, you should have your image tagged already.  Running `docker images` will show your image with the name you’ve chosen.
+```
+docker images
+REPOSITORY TAG IMAGE ID CREATED SIZE
+vpiusr/example-node-app latest be083a8e3159 7 minutes ago 83.2MB
+```
+
+Now, whenever you make changes to your files, you will need to rebuild you images. See technical difference between Image and container for this part (added later).
+Now, when we make changes to the Dockerfile, these don't get applied to the already existing container. As a result, whenever we run `docker start` command or `docker-compose up` command, it will pick the existing image and spin container from that image, or will start an existing conatiner. Only thing that will persist or change in each instance is the volume which is where the data is stored. So everytime you make changes to you Dockerfile, you need to rebuild the container. Rebuilding and restarting isn't enough. Containers don't work like a service: Stopping the service, do your changes, restart it and they would apply. Because containers are permanent, you have to remove them using first. After a container is removed, you can't simply start it by docker start. This has to be done using `docker run`, which itself uses the latest image for creating a new container-instance.
+
+
+For Dockerfile:
+- Remove container:
+  ```
+  docker rm <ContainerName> 
+  ```
+- Run the container. You can't use `docker start` as you first need to build the image:
+  ```
+  docker run
+  ```
+
+Here is all the steps:
+```
+#!/bin/bash
+imageName=xx:my-image
+containerName=my-container
+
+docker build -t $imageName -f Dockerfile  .
+
+echo Delete old container...
+docker rm -f $containerName
+
+echo Run new container...
+docker run -d -p 5000:5000 --name $containerName $imageName
+```
+
+For Docker-compose:
+- Start Docker compose with `--build` tag:
+  ```
+  docker-compose up --build
+  ```
+
 ## Create volume
 Docker containers are stateless. So, if you use a Containerized MySQL, then you will lose all your saved Data once you restart the container. One way to avoid the issue is to create a docker volume and attach it to your MySQL container. Here are the commands to create a MySQL container including attached volume in your local machine:
 The following command will create the volume in your local machine which you can connect with MySQL container later:
@@ -73,6 +131,7 @@ You can check low-level information on your Docker container by running the foll
 ```
 docker inspect <container-name>
 ```
+
 
 ## Access Docker container
 Now, you can connect to the container’s interactive bash shell with the following command:
@@ -406,6 +465,44 @@ docker-compose down --volumes
 > Remember, we can create a image with a Dockerfile and use that image in the `services` section of the `docker-compose.yml`. Docker Compose services is not limited to existing ones. 
 
 # Technical details
+## Difference between Image and container
+To use a programming metaphor, if an image is a class, then a container is an instance of a class—a runtime object. Containers are hopefully why you’re using Docker; they’re lightweight and portable encapsulations of an environment in which to run applications.
+
+Here is a video which explains the fundamental difference between Image and Container:
+https://www.youtube.com/watch?v=CSb-sHNM2NY
+
+The gist is as follows:
+- **Dockerfile** is a blueprint on how to create an image
+- **Image** is a template for the creation of container. Think of Image as a cookie cutter. On its own, a cookie cutter is not a cookie. It's just a template on how to create cookies of same dimension.
+- **Container** is a running instance of the application. Think of container as the cookie.
+
+You can see all the docker images as follows:
+```
+docker images
+```
+
+You can see running containers as follows:
+```
+docker ps -a
+
+# Exited containers:
+docker ps --filter status=exited
+```
+
+Some important point:
+- `IMAGE ID` is the first 12 characters of the true identifier for an image. You can create many tags of a given image, but their IDs will all be the same:
+  ```
+  REPOSITORY                TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
+  ubuntu                    13.10               5e019ab7bf6d        2 months ago        180 MB
+  ubuntu                    14.04               99ec81b80c55        2 months ago        266 MB
+  ubuntu                    latest              99ec81b80c55        2 months ago        266 MB
+  ubuntu                    trusty              99ec81b80c55        2 months ago        266 MB
+  <none>                    <none>              4ab0d9120985        3 months ago        486.5 MB
+  ```
+  
+  The value in the REPOSITORY column comes from the `-t` flag of the `docker build` command, or from docker tag-ing an existing image. You’re free to tag images using a nomenclature that makes sense to you, but know that docker will use the tag as the registry location in a docker push or docker pull.
+
+
 ## Difference between Dockerfile ENV and Docker compose environments
 Environment variable defined in Dockerfile will not only be used in `docker build`, it will also persist into the container. This means if you did not set `-e` when `docker run`, it will still have environment variable same as defined in Dockerfile, while environment variable defined in `docker-compose.yaml` is just used for `docker run`.
 
@@ -554,6 +651,8 @@ services:
 The `web` service uses an image that’s built from the `Dockerfile` in the current directory. It then binds the container and the host machine to the exposed port, 8000. This example service uses the default port for the Flask web server, 5000. So, in our browser, we would see the service at http://localhost:8000/
 
 The `volumes` key mounts the project directory (current directory) on the host to `/code` inside the container, allowing you to modify the code on the fly, without having to rebuild the image. The `environment` key sets the `FLASK_ENV` environment variable, which tells flask run to run in `development` mode and reload the code on change. This mode should only be used in development. `FLASK_ENV` is a Flask specific variable to run the application debug mode (meaning more verbose error messages and application need not restart to check new changes, as in dynamic changes will be visible). 
+
+https://docs.docker.com/compose/gettingstarted/
 
 ## Kafka
 Sample Docker compose
