@@ -1,6 +1,16 @@
 # Docker
 Think about a container as a “lightweight virtual machine”. Unlike virtual machines though, containers do not require an entire operating system, all required ibraries and the actual application binaries. The same Linux kernel and libraries can be shared between multiple containers running on the host. Docker makes it easy to package Linux software in self-contained images, where all software dependencies are bundled and deployed in a repeatable manner. An image will have exactly the same software installed, whether we run it on a laptop or on a server. The key benefit of Docker is that it allows users to package an application with all of its dependencies into a standardized unit (container). Running many containers allows each one to focus on a specific task; multiple containers then work in concert to implement a distributed system.
 
+The easiest tutorial you can have a look at it is this: https://www.youtube.com/watch?v=gAkwW2tuIqE
+
+# TLDR
+- First, create a Dockerfile. This will give instructions of how to create an image
+- Next, build the docker image using DOckerfile (`docker build`)
+- Once, image is built, push it to a registry such as AWS ECR or Docker Registry. This image will then be pulled to build other images.
+- Once, image is pulled, we run the container using `docker run`
+
+Here onwards, we describe each and every step.
+
 ## Build Docker image:
 The command for creating an image from a Dockerfile is `docker build`.
 ```
@@ -59,6 +69,8 @@ For Docker-compose:
   docker-compose up --build
   ```
 
+You can also build your containers from custom location and custom Dockerfile. These are added and described later.
+
 ## Create volume
 Docker containers are stateless. So, if you use a Containerized MySQL, then you will lose all your saved Data once you restart the container. One way to avoid the issue is to create a docker volume and attach it to your MySQL container. Here are the commands to create a MySQL container including attached volume in your local machine:
 The following command will create the volume in your local machine which you can connect with MySQL container later:
@@ -85,6 +97,14 @@ The following command will pull the MySQL server version 8.0.20 from the Docker 
 Unable to find image ‘mysql/mysql-server:8.0.20’ locally
 8.0.20: Pulling from mysql/mysql-server
 ```
+
+**Port mapping explanation:**
+Here, Ports are mapped as `LOCAL:CONTAINER`. So here, 3306:3306 will be local 3306 mapped to 3306. FOr clearer explanation, let's take the following example:
+- In the DOCKERFILE, `EXPOSE` port 8080 for your web application
+- When you build your image, it will define the port 8080 to be the port the docker container will use.
+- Now, if you run `localhost:8080`, you won't see your application
+- So when you run your docker, map it as follows: `-p 5000:8080`. This means local system's port 5000 is mapped to Docker's 8080
+- Try running `localhost:5000`. You will now see your app.
 
 If you don't pull image from repository, `docker run` will get/pull it. `docker run` checks for local image before pulling from remote.
 
@@ -272,7 +292,8 @@ $ docker run \
 mysql
 ```
 The `--volume=/storage/docker/mysql-datadir:/var/lib/mysql` part of the command mounts the `/storage/docker/mysql-datadir directory` from the underlying host system as `/var/lib/mysql` inside the container, where MySQL by default will write its data files (`conf.d` is explained under configuration management in MySQL containers in subequent section), as illustrated in the following diagram:
-![Docker illustration](docs/docker01.png)
+
+![Docker illustration](../../docs/docker01.png)
 
 When inspecting the container, you should see the following lines:
 ```
@@ -378,6 +399,11 @@ Once `Dockerfile` has been created, we keep it in the same directory as our proj
 Run the following command:
 ```
 docker build -t <container-image-name> .
+
+# If file name is not Dockerfile:
+docker build -f dockerfiles/test1.Dockerfile  -t test1_app .
+# or
+docker build -f dockerfiles/Dockerfile-test1  -t test1_app .
 ```
 
 This command used the Dockerfile to build a new container image. You might have noticed that a lot of “layers” were downloaded. This is because we instructed the builder that we wanted to start from the `python:3.7-alpine` image. But, since we didn’t have that on our machine, that image needed to be downloaded.
@@ -423,6 +449,29 @@ Here’s the explanation:
 - `environment`, this is the environment variable needed to configure database and access. We will create database with name “your_database”, then we- will create an user with name “daniel” and password “daniel” and also configure superuser account password with “root”.
 - `ports`, this port will be used to map your container host to your host port (in this case, your linux server port).
 - `volumes`, we will store persist mysql data from container filesystem /var/lib/mysql. So, whenever mysql container is restarted or stopped, the data won’t be erased.
+- `build`, not mentioned here but this tag is used to build containers from the images. In the next section I describe how to use `build` with `docker-compose up` but here's 2 examples of `build` tag inside you compose file:
+  ```
+  services:
+    web:
+      build: .
+      # other sections
+    db:  
+      build:
+        context: .
+        dockerfile: src/docker/Dockerfile-mysql
+    ...
+  ```
+  In the above section, the `web` service is built from existing location as the Docker compose file. It will search for the `DOCKERFILE` and build it and start the container.
+  For `db`, it will search for the `DOCKERFILE` at a custom location and build it. `build > context` is relative to docker-compose command running directory. `build > dockerfile` is relative to `build > context` directory. 
+  If assumption is the directory structure is as follows:
+  ```
+    main/
+      |--docker-compose.yml
+      |--src/
+          |--docker/
+                |--Dockerfile-mysql
+  ```
+  The `context` in `build` sets the location to the `docker-compose.yml` location, i.e inside the `main` directory. The `build` will then take the `DOCKERFILE` at `dockerfile` and execute the commands inside it as though it's at `main` (and not `src/docker/`). So commands such as `COPY . .` inside `Dockerfile-mysql` will copy everything from `main` and not `src/docker/`. This is because `context` sets the location from where execution is to be conducted. This is important because Docker lets you have Docker CLI and Docker engine in 2 separate location and also let's you execute Dockerfiles from remote repositories.
 
 Save the file then run `docker-compose up` in **detached mode** in the same directory as `docker-compose.yml`.
 ```
@@ -435,6 +484,11 @@ docker-compose up -d
 docker-compose up -d
 ```
 Reason you want to run the containers in detached mode is because you can do more things in the terminal window.
+
+```
+docker-compose up --build
+```
+The above command lets you build your images and start the containers. The `--build` tag searches and reads the build section in each Docker Compose file and will execute it only when the images are to be built into containers. Once conatiners are deployed, we don't need to run it with the `--build` tag and can simply run `docker-compose up`
 
 **Check running containers**: Use `docker-compose ps` to see what is currently running
 ```
