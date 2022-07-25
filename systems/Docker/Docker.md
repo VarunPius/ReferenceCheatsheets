@@ -91,7 +91,7 @@ docker images
 ```
 
 ## Start/Deploy Docker container
-The following command will pull the MySQL server version 8.0.20 from the Docker registry and then instantiate a Docker container with the name `mk-mysql`. It will also attach the previously created volume `mysql-volume` with the Database and will expose the port `3306` so that you can reach the MySQL database outside the container:
+The following command will pull the MySQL server version 8.0.20 from the Docker registry and then instantiate a Docker container with the name `mk-mysql` from the image `mysql/mysql-server:8.0.20`. It will also attach the previously created volume `mysql-volume` with the Database and will expose the port `3306` so that you can reach the MySQL database outside the container:
 ```
 λ docker run --name=mk-mysql -p3306:3306 -v mysql-volume:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql/mysql-server:8.0.20
 Unable to find image ‘mysql/mysql-server:8.0.20’ locally

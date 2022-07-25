@@ -7,6 +7,7 @@ Here is how an example `Docker Compose` file will look like. The file will creat
 version: '3.9'
 services:
   mysql:
+    container_name: mysql-db    #$$$
     image: mysql:8
     environment:
       MYSQL_DATABASE: 'your_database'
@@ -19,6 +20,8 @@ services:
       - mysql_volume:/var/lib/mysql
     networks:
       - backend
+    restart:                    #$$$
+      on-failure
 
 volumes:
   mysql_volume:
@@ -108,6 +111,28 @@ services:
 
 In this case, the we can create 2 more services, `db` in `backend` network and `nginx` in `frontend` network. In that case, `nginx` can't access `db` but `web` can access both `backend` and `frontend`. This segregation is useful.
 
+## `depends_on`
+Express dependency between services. Service dependencies cause the following behaviors:
+- `docker-compose up` starts services in dependency order. In the following example, `db` and `redis` are started before `web`.
+- `docker-compose up SERVICE` automatically includes `SERVICE`’s dependencies. In the example below, `docker-compose up web` also creates and starts `db` and `redis`.
+- `docker-compose stop` stops services in dependency order. In the following example, `web` is stopped before `db` and `redis`.
+
+  Simple example:
+  ```
+  version: "3.9"
+  services:
+    web:
+      build: .
+      depends_on:
+        - db
+        - redis
+    redis:
+      image: redis
+    db:
+      image: postgres
+  ```
+
+
 # `volumes` commands
 
 # `networks` commands
@@ -132,6 +157,12 @@ If the file is not named `docker-compose.yml` then we can give the `-f` to inclu
 docker-compose -f docker-compose1.yml -f docker-compose2.yml up --build
 ```
 Docker-compose will merge the multiple files together.
+
+#$$$
+```
+docker compose up -d --no-deps --build mydocker
+```
+#$$$
 
 ## Check running containers
 Use `docker-compose ps` to see what is currently running
