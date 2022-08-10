@@ -47,6 +47,11 @@ del a[2]        # a is now [1, 2, 4]
 a.remove(2)     # a is now [1, 4]
 a.remove(2)     # Raises a ValueError as 2 is not in the list
 
+# other ways to delete:
+num = list(filter(lambda x: x not in num_to_remove, num))   # using filter method
+num = [i for i in num if i not in num_to_remove]            # list comprehensions
+
+
 # Insert an element at a specific index
 a.insert(1, 2)  # li is now [1, 2, 4] again
 
