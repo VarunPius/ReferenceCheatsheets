@@ -44,7 +44,7 @@ If we check the contents of `venv` for a bit, on a Mac you will see a `bin` fold
 
 The `lib` folder will contain a list of libraries that you have installed. If you take a look at it, you will see a list of the libraries that come by default with the virtual environment.
 
-# Activate the Virtual Environment
+## Activate the Virtual Environment
 Now that you have created the virtual environment, you will need to activate it before you can use it in your project. On a Mac, to activate your virtual environment, run the code below:
 ```
 source env/bin/activate
