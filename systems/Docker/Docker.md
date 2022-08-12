@@ -79,6 +79,29 @@ The following command will create the volume in your local machine which you can
 mysql-volume
 ```
 
+Listing volumes:
+```
+docker volume ls
+```
+
+Inspecting created volume:
+```
+docker volume inspect <volume_name>
+```
+
+Removing volume:
+```
+docker volume rm <volume_name>
+```
+
+Prune volume: This will remove all unused volume:
+```
+docker volume prune
+```
+
+You can even copy files from one volume to another using:
+docker run -it --name=another-example --mount source=demo-volume,destination=/data ubuntu
+
 ## Pull image from repository
 You first pull latest docker image:
 ```
@@ -261,7 +284,7 @@ CONTAINER ID        IMAGE               COMMAND                CREATED          
 At this point, we can now access the MySQL container directly from the machine’s port 6603.
 
 ### Data storage
-There are several ways to store data used by MySQL that run in Docker containers. Docker can manage the storage of your database’s data by writing the database files to disk on the host system, using its own internal volume management. If you run the `inspect` command, look at the `Volumes` directive and you should notice by default MySQL data directory (`/var/lib/mysql`) is mounted into Docker’s internal volume:
+There are several ways to store data used by MySQL that run in Docker containers. Docker can manage the storage of your database’s data by writing the database files to disk on the host system, using its own internal volume management (Read about creating volumes above). If you run the `inspect` command, look at the `Volumes` directive and you should notice by default MySQL data directory (`/var/lib/mysql`) is mounted into Docker’s internal volume:
 ```
 $ docker inspect test-mysql | grep Volumes
     ...
@@ -438,6 +461,11 @@ The gist is as follows:
 You can see all the docker images as follows:
 ```
 docker images
+```
+
+Remove the docker image:
+```
+docker image rm <image_name>
 ```
 
 You can see running containers as follows:

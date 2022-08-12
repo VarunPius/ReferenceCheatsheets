@@ -95,6 +95,27 @@ To deactivate your virtual environment, simply run the following code in the ter
 ```
 
 # Process Files:
+Once a file is processed when you open it and read it with `with open() as var` and an operation is performed, the processor moves on. So you will get an error when you try to process the `var` twice within a block. Copy the values of `var` if you want to process it multiple times. Let's take an example:
+```
+conffile = os.path.join(confdir, 'conf.yaml')
+with open(conffile, "r") as ymlconf:
+    try:
+        print(yaml.safe_load(ymlconf))  # @1
+        conf = yaml.safe_load(ymlconf)  # @2
+    except yaml.YAMLError as exc:
+        print(exc)
+```
+Here, in the above example, when it processed `@1`, the print was executed. However, at `@2`, `conf` will result in `None` as the file was already loaded with `safe_load` a line before. To avoid errors like this, do the following:
+```
+with open(conffile, "r") as ymlconf:
+    try:
+        conf = yaml.safe_load(ymlconf)
+        print(conf)  
+    except yaml.YAMLError as exc:
+        print(exc)
+```
+Here, `ymlconf` is loaded and copied into the `var` variable and you can process it accordingly.
+
 ## Process general files:
 ```
 import os
@@ -112,4 +133,30 @@ with open('innovators.csv', 'r') as file:
 ## Process JSON:
 
 ## Process YAML:
+Assume the following YAML file:
+```
+Redis:
+    server: redis-test.us-sample.ec2.cloud.redislabs.com:19079
+    password: delta1234
+MySQL:
+    server: mysql-test.us-sample.ec2.cloud.sqllabs.com:1001
+    password: delta12345
+```
 
+This is how we process it:
+```
+import yaml
+conffile = os.path.join(confdir, 'conf.yaml')
+with open(conffile, "r") as file:
+    try:
+        conf = yaml.safe_load(file)
+    except yaml.YAMLError as exc:
+        print(exc)
+
+for db in conf:
+    print(db)       # will print `Redis` and `MySQL`
+
+print(db['Redis']['server'])    # will print Redis server
+```
+
+We have used the `safe_load` method instead of `load` as it should always be preferred to avoid introducing the possibility for arbitrary code execution.

@@ -134,8 +134,100 @@ Express dependency between services. Service dependencies cause the following be
 
 
 # `volumes` commands
+You can create a volume explicitly using the `docker volume create` command, or Docker can create a volume during container or service creation.
+
+## Defining volumes
+```
+version: "3.2"
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - 8080:80
+    volumes:
+      - html_files:/usr/share/nginx/html
+ 
+volumes:
+  html_files:
+    external: true
+  redis_files:
+    driver: local
+  # Can be empty; volume will be created with default values
+  mysql_files:
+```
+In the above example, we have used an external volume for `html_files`, local volume for `redis_files` and `mysql_files`.
 
 # `networks` commands
+Running the command `docker network ls` will list out your current Docker networks; it should look similar to the following:
+```
+$ docker network ls
+NETWORK ID          NAME                         DRIVER
+17cc61328fef        bridge                       bridge
+098520f7fce0        composedjango_default        bridge
+1ce3c572afc6        composeflask_default         bridge
+8fd07d456e6c        host                         host
+3b578b919641        none                         null
+```
+
+## Defining networks
+Specify your own networks with the top-level `networks` key, to allow creating more complex topologies and specify network drivers (and options). You can also use this configuration to connect services with external networks Docker Compose does not manage. Each service can specify which networks to connect to with its `service`-level `networks` key.
+
+The following example defines two custom networks. Keep in mind, `proxy` cannot connect to `db`, as they do not share a network; however, `app` can connect to both. In the `front` network, we specify the IPv4 and IPv6 addresses to use (we have to configure an `ipam` block defining the subnet and gateway configurations). We could customize either network or neither one, but we do want to use separate drivers to separate the networks (review Basic Networking with Docker for a refresher):
+```
+version: '2'
+
+services:
+    proxy:
+        build: ./proxy
+        networks: 
+            - front
+    app:
+        build: ./app
+        networks:
+            # you may set custom IP addresses
+            front:
+                ipv4_address: 172.16.238.10 
+                ipv6_address: "2001:3984:3989::10"
+            - back
+    db:
+        image: postgres
+        networks:
+            - back
+
+networks:
+    front:
+        # use the bridge driver, but enable IPv6
+        driver: bridge
+        driver_opts:
+            com.docker.network.enable_ipv6: "true"
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.16.238.0/24
+                gateway: 172.16.238.1
+                - subnet: "2001:3984:3989::/64"
+                gateway: "2001:3984:3989::1"
+    back:
+        # use a custom driver, with no options
+        driver: custom-driver-1
+    
+    # leaving it blank will take default values, which is the bridge network
+    test:     
+```
+
+## Pre-Existing Networks
+You can even use pre-existing networks with Docker Compose; just use the external option:
+```
+version: '2'
+
+networks:
+    default:
+        external:
+            name: i-already-created-this
+```
+
+In this case, Docker Compose never creates the default network; instead connecting the app’s containers to the `i-already-created-this` network.
+
 
 
 # Running the Docker compose file
