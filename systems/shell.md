@@ -10,3 +10,7 @@
 
 # Change default shell
 - Use the `ch` command as follows: `chsh -s $(which zsh)`
+
+# Todo:
+- alias
+- zshrc/bashrc

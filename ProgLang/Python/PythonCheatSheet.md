@@ -122,15 +122,54 @@ import os
 if not os.path.exists('my_folder'):
     os.makedirs('my_folder')
 ```
+
 ## Process CSV:
 ```
 import csv
-with open('innovators.csv', 'r') as file:
+# Define data
+data = [
+    (1, "A towel,", 1.0),
+    (42, " it says, ", 2.0),
+    (1337, "is about the most ", -1),
+    (0, "massively useful thing ", 123),
+    (-2, "an interstellar hitchhiker can have.", 3),
+]
+
+# Write CSV file
+with open("test.csv", "wt") as fp:
+    writer = csv.writer(fp, delimiter=",")
+    # writer.writerow(["your", "header", "foo"])  # write header
+    writer.writerows(data)
+
+# Read CSV file
+with open("test.csv") as fp:
+    reader = csv.reader(fp, delimiter=",", quotechar='"')
+    # next(reader, None)  # skip the headers
+    data_read = [row for row in reader]
+print(data_read)
+
+# Another Approach
+with open('test.csv', 'r') as file:
     reader = csv.reader(file)
     for row in reader:
         print(row)
 ```
 ## Process JSON:
+```
+import json
+
+# Write data
+with open('data.json', 'w', encoding='utf-8') as f:
+    json.dump(data, f, ensure_ascii=False, indent=4)
+  
+# Opening JSON file
+f = open('data.json')
+  
+# returns JSON object as 
+# a dictionary
+data = json.load(f)
+f.close()
+```
 
 ## Process YAML:
 Assume the following YAML file:
