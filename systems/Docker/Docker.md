@@ -316,7 +316,7 @@ mysql
 ```
 The `--volume=/storage/docker/mysql-datadir:/var/lib/mysql` part of the command mounts the `/storage/docker/mysql-datadir directory` from the underlying host system as `/var/lib/mysql` inside the container, where MySQL by default will write its data files (`conf.d` is explained under configuration management in MySQL containers in subequent section), as illustrated in the following diagram:
 
-![Docker illustration](../../docs/docker01.png)
+![Docker illustration](../../assets/images/docker01.png)
 
 When inspecting the container, you should see the following lines:
 ```
