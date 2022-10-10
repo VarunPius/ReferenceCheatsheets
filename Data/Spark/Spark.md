@@ -18,6 +18,7 @@ https://msdilli.medium.com/spark-optimization-techniques-681cb85d01f9
 https://medium.com/@sandhiya320/apache-spark-sql-partitioning-bucketing-c5831b8d166c
 https://medium.com/towardsdev/pyspark-broadcast-variables-and-accumulator-6addab4d8aff
 https://medium.com/@a.anekpattanakij/big-data-file-formats-introduction-to-arvo-parquet-and-orc-file-d153f0f20b1e
+https://nivedita-mondal.medium.com/spark-join-strategies-fb984b50441d
 
 
 https://nivedita-mondal.medium.com/spark-interview-guide-spark-core-2ab0f57304eb
