@@ -20,7 +20,7 @@ https://medium.com/towardsdev/pyspark-broadcast-variables-and-accumulator-6addab
 https://medium.com/@a.anekpattanakij/big-data-file-formats-introduction-to-arvo-parquet-and-orc-file-d153f0f20b1e
 https://nivedita-mondal.medium.com/spark-join-strategies-fb984b50441d
 
-
+https://medium.com/analytics-vidhya/sparksql-and-dataframe-high-level-api-basics-using-pyspark-eaba6acf944b
 https://nivedita-mondal.medium.com/spark-interview-guide-spark-core-2ab0f57304eb
 https://nivedita-mondal.medium.com/spark-interview-guide-part-2-rdd-7911519e68c1
 https://nivedita-mondal.medium.com/spark-interview-guide-part-3-spark-sql-dataframe-12f04f168d6b
