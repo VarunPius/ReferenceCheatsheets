@@ -10,3 +10,15 @@ services:
       MYSQL_USER: vpiusr
       MYSQL_PASSWORD: accesskey
       MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - backend
+    restart:
+      on-failure
+
+volumes:
+  db_data:
+
+networks:
+  backend: 

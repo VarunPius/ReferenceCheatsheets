@@ -131,13 +131,25 @@ Once all services have successfully launched, you will have a basic Kafka enviro
 3. Create Kafka Topic: A topic is a category or feed name to which records are published. Topics in Kafka are always multi-subscriber; that is, a topic can have zero, one, or many consumers that subscribe to the data written to it.
     ```sh
     # if brew installation:
-    kafka-topics --create --zookeeper localhost:9092 --replication-factor 1 --partitions 1 --topic test
+    kafka-topics --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic test
     # or
     # if installation from source
     bin/kafka-topics.sh --create --topic quickstart-events --bootstrap-server localhost:9092
     ```
 
-    Here we have created a topic name `test`. `9092` is the port configured for the Kafka Server to run at in step 2 (in the `server.properties` file)
+    Here we have created a topic name `test`. `9092` is the port configured for the Kafka Server to run at in step 2 (in the `server.properties` file).
+
+    Some tutorials use `--zookeeper localhost:2181` option instead of `--bootstrap-server localhost:9092`. Remember, it will result in an error as Apache has deprecated `--zookeeper`
+    &nbsp; 
+    **Listing all topics**:
+    ```
+    kafka-topics --list --bootstrap-server localhost:9092
+    ```
+    &nbsp; 
+    **Describe topic**:
+    ```
+    kafka-topics --bootstrap-server localhost:9092 --describe --topic <TopicName>
+    ```
 
 4. Initialize Producer console: Now we will initialize the Kafka producer console, which will listen to `localhost` at port `9092` at topic `test`:
     ```sh

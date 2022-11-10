@@ -84,7 +84,7 @@ This port will be used to map your container host to your host port (in this cas
 we will store persist mysql data from container filesystem `/var/lib/mysql`. So, whenever mysql container is restarted or stopped, the data won’t be erased.
 
 ## `networks`
-This section defines networks. Suppose you start 2 different services, with 2 different network names, then these services can't talk to each other. An example would be:
+This section defines networks. Suppose you start 2 different services, with 2 different network names, then these services can't talk to each other. Since version 2, Docker has deprecated `links` and networks has been used. An example would be:
 ```
 services:
   web:

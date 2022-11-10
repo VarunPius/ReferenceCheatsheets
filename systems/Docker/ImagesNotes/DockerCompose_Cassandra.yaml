@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  cassandra:
+    image: cassandra:latest
+    ports:
+      - 9042:9042
+    volumes:
+      - db_data:/var/lib/cassandra
+    environment:
+      - CASSANDRA_CLUSTER_NAME=cluster_vapr1
+
+volumes:
+  db_data:
+
+networks:
+  backend: 

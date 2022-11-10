@@ -126,5 +126,11 @@ asd
 ## sort() vs sorted()
 
 ## __variable__ vs __variable
+https://stackoverflow.com/questions/1301346/what-is-the-meaning-of-single-and-double-underscore-before-an-object-name
+https://www.datacamp.com/tutorial/role-underscore-python
 
 ## __new()__ vs __init()__
+
+# extraToDo
+https://stackoverflow.com/questions/19278861/issues-with-generating-a-defaultdict-with-a-deque
+https://waymoot.org/home/python_string/
