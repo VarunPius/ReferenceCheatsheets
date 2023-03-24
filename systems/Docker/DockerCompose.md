@@ -134,7 +134,7 @@ Express dependency between services. Service dependencies cause the following be
 
 
 # `volumes` commands
-You can create a volume explicitly using the `docker volume create` command, or Docker can create a volume during container or service creation.
+`volumes` is used to define the volumes or let the container know which volume to use if already created.
 
 ## Defining volumes
 ```

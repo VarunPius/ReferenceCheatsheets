@@ -5,7 +5,7 @@ The easiest tutorial you can have a look at it is this: https://www.youtube.com/
 
 # TLDR
 - First, create a Dockerfile. This will give instructions of how to create an image
-- Next, build the docker image using DOckerfile (`docker build`)
+- Next, build the docker image using Dockerfile (`docker build`)
 - Once, image is built, push it to a registry such as AWS ECR or Docker Registry. This image will then be pulled to build other images.
 - Once, image is pulled, we run the container using `docker run`
 
@@ -444,6 +444,67 @@ docker run -dp 3000:3000 <container-image-name>
 Remember the `-d` and `-p` flags? We’re running the new container in “detached” mode (in the background) and creating a mapping between the host’s port 3000 to the container’s port 3000. Without the port mapping, we wouldn’t be able to access the application.
 
 After a few seconds, open your web browser to http://localhost:3000. You should see our app.
+
+
+# Docker Volumes:
+You can create a volume explicitly using the `docker volume create` command, or Docker can create a volume during container or service creation.
+
+There are 3 types of volumes:
+- Host Volumes
+- Named volumes
+- Anonymous volumes: This type is ephemeral and deleted once the containers are shut
+
+**Host Volumes** are the ones with direct reference from the local host system to the docker container. An example of creating is as follows:
+```
+docker run -v $(pwd)/config:/config -itd alpine
+docker exec -it <container_id> sh
+```
+Above, the first command specifies the volume by `-v`. So from the current directory, it will copy the `config` directory to the `config` directory at root of docker container. Using the second command simply `ls` and you will find all your files. If you modify any data here, even on docker container, you will be able to see it in local host system too.
+
+What are the other values in the command?
+- `-i`, `--interactive` keeps STDIN open even if not attached, which you need if you want to type any command at all
+- `-t`, `--tty` Allocates a pseudo-TTY, a pseudo terminal which connects a user's "terminal" with stdin and stdout. (See container/container.go)
+- If you do an echo, only `-t` is needed
+- But for an interactive session where you enter inputs, you need `-i`
+- Since `-i` keeps stdin open, it is also used in order to pipe input to a detached docker container. That would work even with `-d` (detach).
+- `alpine` is just a simple base linux image
+
+**Named Volumes** are the volumes explicitly created within docker. Named volumes are useful when you need to share a volume with multiple containers. Here are some commonly used commands.
+- Docker volume can be created as:
+  ```
+  docker volume create <volume_name>
+  ```
+- Volumes can be listed as:
+  ```
+  docker volume ls
+  ```
+- Details about a volume can be inspected by:
+  ```
+  docker volume inspect <volume_name>
+  ```
+- Remove volume by:
+  ```
+  docker volume rm <volume_name>
+  ```
+- Accessing volume data in host system:
+  ```
+  # One specific file can be copied TO the container like:
+  docker cp foo.txt <container_id>:/foo.txt
+
+  #One specific file can be copied FROM the container like:
+  docker cp <container_id>:/foo.txt foo.txt
+  ```
+- To check data in the docker volume, simply mount it to a simple linux container and check it inside.
+  ```
+  # format: volume-name:container-mount-location
+  docker run -itd -v <volume_name>:/data_db alpine
+  docker exec -it <container_id> sh
+  cd data_db
+  ls -la
+  ```
+
+# Docker networks:
+More is written in Docker-Compose file
 
 
 # Technical details
