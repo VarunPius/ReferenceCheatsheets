@@ -502,6 +502,11 @@ What are the other values in the command?
   cd data_db
   ls -la
   ```
+```
+//TODO: Mountpoint and mount volume and how it reconciles with above
+https://www.youtube.com/watch?v=OrQLrqQm4M0 : Mountpoint
+https://www.freecodecamp.org/news/docker-mount-volume-guide-how-to-mount-a-local-directory/
+```
 
 # Docker networks:
 More is written in Docker-Compose file

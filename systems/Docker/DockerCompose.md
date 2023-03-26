@@ -7,7 +7,7 @@ Here is how an example `Docker Compose` file will look like. The file will creat
 version: '3.9'
 services:
   mysql:
-    container_name: mysql-db    #$$$
+    container_name: mysql-db    # //TODO
     image: mysql:8
     environment:
       MYSQL_DATABASE: 'your_database'
@@ -20,7 +20,7 @@ services:
       - mysql_volume:/var/lib/mysql
     networks:
       - backend
-    restart:                    #$$$
+    restart:                    # //TODO
       on-failure
 
 volumes:
@@ -250,11 +250,11 @@ docker-compose -f docker-compose1.yml -f docker-compose2.yml up --build
 ```
 Docker-compose will merge the multiple files together.
 
-#$$$
+//TODO
 ```
 docker compose up -d --no-deps --build mydocker
 ```
-#$$$
+
 
 ## Check running containers
 Use `docker-compose ps` to see what is currently running
