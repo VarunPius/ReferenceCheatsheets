@@ -134,3 +134,7 @@ https://www.datacamp.com/tutorial/role-underscore-python
 # extraToDo
 https://stackoverflow.com/questions/19278861/issues-with-generating-a-defaultdict-with-a-deque
 https://waymoot.org/home/python_string/
+https://towardsdatascience.com/how-to-build-custom-context-managers-in-python-31727ffe96e1
+https://towardsdatascience.com/an-in-depth-tutorial-to-python-decorators-that-you-can-actually-use-1e34d3d2d305
+https://towardsdatascience.com/12-python-decorators-to-take-your-code-to-the-next-level-a910a1ab3e99
+
