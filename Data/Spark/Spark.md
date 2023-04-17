@@ -40,3 +40,5 @@ https://nivedita-mondal.medium.com/spark-optimization-technique-how-to-improve-p
 
 https://blog.devops.dev/a-comprehensive-guide-on-apache-hive-basics-582cc07fe124
 https://medium.com/@vdtdg/advice-for-devs-who-want-to-build-strong-etls-a32a25225a08
+https://medium.com/nerd-for-tech/joining-strategies-in-apache-spark-f802a7dab150
+https://www.youtube.com/playlist?list=PLmtsMNDRU0Bw6VnJ2iixEwxmOZNT7GDoC
