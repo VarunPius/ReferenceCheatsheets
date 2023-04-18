@@ -42,3 +42,13 @@ https://blog.devops.dev/a-comprehensive-guide-on-apache-hive-basics-582cc07fe124
 https://medium.com/@vdtdg/advice-for-devs-who-want-to-build-strong-etls-a32a25225a08
 https://medium.com/nerd-for-tech/joining-strategies-in-apache-spark-f802a7dab150
 https://www.youtube.com/playlist?list=PLmtsMNDRU0Bw6VnJ2iixEwxmOZNT7GDoC
+
+# Dealing with skewed data in partitions
+When dealing with skewed data in Spark, one technique is to use partitioning to optimize performance. According to Towards Data Science, you can use the following methods to diagnose if your data are skewed:
+
+import pyspark.sql.functions as F
+df.groupBy(F.spark_partition_id()).count().show()
+This will show you how many rows are in each partition and help you identify which partitions are skewed.
+
+Once you have identified the skewed partitions, you can use techniques such as bucketing or salting to redistribute the data more evenly across partitions.
+
