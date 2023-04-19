@@ -10,7 +10,7 @@ alias vim='nvim'
 ```
 
 
-# Install NvChad
+# NVCHAD
 ## Delete previous configurations:
 - If you have used the Neovim installation before, it will have created three folders in which to write your files, which are:
     ```
@@ -49,6 +49,10 @@ The first part of the command clones the NvChad repository to the `~/.config/nvi
 The `--depth 1` option instructs git to clone only the repository set as `default` on GitHub.
 
 Once the cloning process is finished in the second part of the command, the Neovim executable (`nvim`) is called, which upon finding a configuration folder will start importing the configurations encountered in the `init.lua` files of it in a predefined order.
+
+## Neovim Keymap
+- To change theme: `Space` > `t` > `h`
+- Install language parser using: `:TSInstall <language>`. For example, `:TSInstall python`. More list on official website.
 
 
 # Using NeoVim
