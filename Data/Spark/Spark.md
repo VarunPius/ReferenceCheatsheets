@@ -27,6 +27,7 @@ https://nivedita-mondal.medium.com/spark-interview-guide-part-3-spark-sql-datafr
 https://nivedita-mondal.medium.com/spark-interview-guide-module-4-spark-structured-streaming-af236380133c
 https://nivedita-mondal.medium.com/spark-interview-guide-part-4-important-concepts-22a464b693d0
 https://nivedita-mondal.medium.com/spark-optimization-technique-how-to-improve-performance-for-your-spark-application-f75dc58b6b86
+https://medium.com/towards-data-science/apache-spark-optimization-techniques-fa7f20a9a2cf
 
 
 — Use DataFrame/Dataset over RDD
