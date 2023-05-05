@@ -1,4 +1,10 @@
-// Basics to get project started
+/***************************************************************************************************
+Chapter 0:  Getting Started
+
+This chapter includes:
+  - various ways to start a simple "Hello World"
+  - writing main methods
+***************************************************************************************************/
 
 // Scala 3 implementation: we initializes main with the use of @main annotation
 object Chapter0 {

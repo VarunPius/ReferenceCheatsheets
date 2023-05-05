@@ -1,3 +1,12 @@
+/***************************************************************************************************
+Chapter 1:  Parameterized and User inputs
+
+This chapter includes:
+  - various ways to call main method
+  - Accept user input
+  - object creation: if necessary
+***************************************************************************************************/
+
 // We don't necessarily need to create an object
 // Here in this chapter, we will take user input
 
