@@ -8,9 +8,14 @@ This chapter includes:
 
 // Scala 3 implementation: we initializes main with the use of @main annotation
 object Chapter0 {
-  @main def HelloWorld() = {
+  @main def HelloWorld() = 
     println("Hello World!")
-  }
+  
+  println("If mentioned outside main, gets executed first")
+  /*
+  you can create methods and objects at same level as @main and during compilation all these objects get created before the main gets executed
+  This is why, here you see preceding print statement before main's print
+  */
 }
 
 
