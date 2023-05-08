@@ -75,5 +75,6 @@ object Chapter5 {
   println("Str Concatenator3: " + stringConcatenator3("test", "data"))      //Str Concatenator3: testdata
   println("Str Concatenator4: " + stringConcatenator4("test", "data"))      //Str Concatenator4: testdata
 
-
+  // Higher order functions:
+  // These are Functions that take functions as argumenst or returns functions
 }
