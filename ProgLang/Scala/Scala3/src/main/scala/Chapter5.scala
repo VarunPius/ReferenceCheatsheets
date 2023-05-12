@@ -1,9 +1,9 @@
-/** *************************************************************************************************
-*Chapter 5: Functional Programming
- *
- *This chapter includes:
-  *- Functional Programming
- ***************************************************************************************************/
+/****************************************************************************************************
+Chapter 5: Functional Programming
+
+This chapter includes:
+  - Functional Programming
+****************************************************************************************************/
 
 object Chapter5 {
   println("Chapter 5: Functional Programming")
@@ -75,6 +75,72 @@ object Chapter5 {
   println("Str Concatenator3: " + stringConcatenator3("test", "data"))      //Str Concatenator3: testdata
   println("Str Concatenator4: " + stringConcatenator4("test", "data"))      //Str Concatenator4: testdata
 
-  // Higher order functions:
-  // These are Functions that take functions as argumenst or returns functions
+  // Higher order functions (HOF):
+  // These are Functions that take functions as arguments or returns functions
+  val aMappedList = List(1,2,3).map(x => x + 1) // Here, the argument of map is a HOF which is an anonymous function
+  println("HOF List:" + aMappedList)    // HOF List:List(2, 3, 4)
+  // aMappedList is a different list than the original supplied list (1,2,3)
+
+  // Another way to write (for practice)
+  val aMappedList2: List[Int] = List(4,5,6).map(x => x + 2)   // (Int => Int)
+  println("HOF List2:" + aMappedList2)    // HOF List2:List(6, 7, 8)
+
+  // Flatmap
+  val aFlatmappedList = List(1,4,5).flatMap(x => List(x, 2*x))    // (Int => List)
+  println("Flatmap: " + aFlatmappedList)    //List(1, 2, 4, 8, 5, 10)
+  // alternative syntax
+  val aFlatmappedList2 = List(1,4,5).flatMap {
+    x => List(x, 3*x)
+  }
+  println("Flatmap2: " + aFlatmappedList2)    //List(1, 2, 4, 8, 5, 10)
+
+  // Filter
+  val aFilteredList = List(1,2,3,4,5,6).filter(x => x < 3)    // (Int => Boolean)
+  println("Filtered list: " + aFilteredList)    // Filtered listList(1, 2)
+  // ALternative shorter syntax
+  val aFilteredList2 = List(1, 2, 3, 4, 5, 6).filter(_ <= 3) //
+  println("Filtered list 2: " + aFilteredList2) // Filtered listList(1, 2, 3)
+  // This is equivalent to (x => x <=3)
+
+  // Chaining
+  // Since in scala, all operations yield immutable datatypes, we can chain them one after another
+  // Eg: all pairs of number 1,2,3 and letters a,b,c
+  val pairs = List(1,2,3).flatMap(num => List('a','b','c').map(letter => s"$num-$letter"))
+  println("All pairs: " + pairs)  // All pairs: List(1-a, 1-b, 1-c, 2-a, 2-b, 2-c, 3-a, 3-b, 3-c)
+
+  // for comprehensions
+  val altPairs = for
+    num <- List(1, 2, 3)
+    letter <- List('a', 'b', 'c')
+  yield s"$num-$letter"
+  println("Alt pairs: " + altPairs)   // Alt pairs: List(1-a, 1-b, 1-c, 2-a, 2-b, 2-c, 3-a, 3-b, 3-c)
+  // Remember for comprehensions are not for loops, they are just another way to chain
+  /*
+  can also be written as:
+  val altPairs = for{
+      num <- List(1,2,3)
+      letter <- List('a','b','c')
+    } yield s"$num-$letter"
+  */
+
+  // Collections ****************************************************/
+  // Lists
+  val aList = List(1,2,3,4,5)
+  val first = aList.head
+  val rest = aList.tail
+  val aPrependedList = 0::aList // List(0,1,2,3,4,5)
+  val aExtendedList = 0 +: aList :+ 6   // List(0,1,2,3,4,5,6)
+
+  // Sequences
+  // In Java terms
+  // Scala's Seq would be Java's List
+  // and Scala 's List would be Java's LinkedList. There are more technical details.
+  val aSequence: Seq[Int] = Seq(1,2,3,4)  // Similar to Seq.apply(1,2,3,4)
+                                          // as mentioned above in discussion about apply
+  val accessedElement = aSequence(1)      // similar to aSequence.apply(1); will yield element at index 1: 2
+
+  // Vectors
+  // Particular type sequence good for large data
+  // It is a fast sequence implementation
+
 }
