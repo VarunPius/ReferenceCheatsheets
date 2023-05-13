@@ -3,6 +3,7 @@ Chapter 5: Functional Programming
 
 This chapter includes:
   - Functional Programming
+  - Collections
 ****************************************************************************************************/
 
 object Chapter5 {
@@ -121,6 +122,11 @@ object Chapter5 {
       num <- List(1,2,3)
       letter <- List('a','b','c')
     } yield s"$num-$letter"
+
+  For comprehensions without yield:
+  val numPairs = List((2, 5), (3, -7), (20, 56))
+  for (a, b) <- numPairs do
+    println(a * b)
   */
 
   // Collections ****************************************************/
@@ -142,5 +148,37 @@ object Chapter5 {
   // Vectors
   // Particular type sequence good for large data
   // It is a fast sequence implementation
+  val aVector = Vector(1,2,3,4,5)
+
+  // Set: like hashset
+  val aSet = Set(1,2,3,4,5,1,2)
+  println("Set values: " + aSet)
+  val setHas6 = aSet.contains(6)
+  println("Set contains 6? " + setHas6)
+  val anAddedSet = aSet + 6
+  val removedSet = anAddedSet - 3
+  println("Updated Set 1: " + anAddedSet)
+  println("Updated Set 2: " + removedSet)
+
+  // Ranges
+  val aRange = 1 to 1000
+  val twoByTwo = aRange.map(x => 2*x).toList  // can also be written as .map(2*_)
+  println("Range List: " + twoByTwo)      // List(2, 4, 6, 8, 10, 12..., 2000)
+
+  // Tuples : Groups of value under the same value; immutable; similar to python tuple
+  val aTuple = ("Bon Jovi", "Rock", 1982)
+
+  //maps: HashMaps
+  val aPhoneBook: Map[String, Int] = Map(
+    ("Jane", 123454),
+    "Adam" -> 324545      // equivalent to ("Adam", 324545)
+  )
+
 
 }
+
+/*
+todo:
+- vector using for comprehensions
+- collection methods (separate into different file)
+*/
