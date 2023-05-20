@@ -30,7 +30,24 @@ object Chapter2 {
     // This results in an error: num3 = "test"
     // Because datatype can't be changed; only value can be
 
+    // Code Block
+    val codeBlock = 
+      val anExpression2 = 4
+      anExpression2 + 5
+    
+    println("CodeBlock: " + codeBlock.toString)
 
+    // Integers
+    val anExpression1 = 2 + 3
+    println("anExpression1: " + anExpression1.toString)
+
+    // Boolean
+    val aBoolean1 = false
+    val aBoolean2 = true
+    println("Boolean values: " + aBoolean1 + " " + aBoolean2)
+
+
+    
 
 
 }
