@@ -8,18 +8,27 @@ This chapter includes:
 
 
 object Chapter2
-  @main def mainMethodCaller =
-    variables                           // Can't add() as the original method def doesn't have ();
-                                        // () will result in error
+  @main def mainMethodCaller() =
+    variableOperations                  // Can't add() as the original method def doesn't have ();
+    println()                           // () will result in error
+
     numericOperations()
+    println
+
     stringOperations
+    println
+
+    advancedDatatypes
+    println()
+
     controlStructures
+    println
 
 
-  private def variables =      // () not necessary if no input parameters
-    println("__________________________________________________")
+  private def variableOperations =      // () not necessary if no input parameters
+    println("--------------------------------------------------")
     println("++++++++++ Basic variables here ++++++++++++++++++")
-    println("__________________________________________________")
+    println("--------------------------------------------------")
     // Val is used to initialize constant value
     val num1 = 12
     println("Value Num1: " + num1)
@@ -46,10 +55,10 @@ object Chapter2
     println("CodeBlock: " + codeBlock.toString)
 
 
-  def numericOperations() =
-    println("__________________________________________________")
+  def numericOperations(): Unit =               // Alternate approach for empty returns; above we did without Unit
+    println("--------------------------------------------------")
     println("++++++++++ Numeric operations start here +++++++++")
-    println("__________________________________________________")
+    println("--------------------------------------------------")
     // Primitive datatypes:
     val b: Byte = 1
     val i: Int = 1
@@ -82,9 +91,9 @@ object Chapter2
 
 
   def stringOperations =
-    println("__________________________________________________")
+    println("--------------------------------------------------")
     println("++++++++++ String operations start here ++++++++++")
-    println("__________________________________________________")
+    println("--------------------------------------------------")
     // String and Char data types:
     val name = "Bill"   // String
     val c = 'a'         // Char
@@ -105,11 +114,12 @@ object Chapter2
 
     val essay2 =
       """Scala is functional language
-        |test2
-        .."""
+        | Multiline suggestion
+        | this one's without margin"""
 
     println("Essay: " + essay)
     println("Essay2: " + essay2)
+    println()
 
     // Boolean
     val aBoolean1 = false
@@ -117,7 +127,41 @@ object Chapter2
     println("Boolean values: " + aBoolean1 + " " + aBoolean2)
 
 
+  def advancedDatatypes =
+    println("--------------------------------------------------")
+    println("++++++++++ Advanced datatypes start here +++++++++")
+    println("--------------------------------------------------")
+    // Arrays, Map, Set, Stack, Queue
+
+    //Seq and List
+    // In Java terms, Scala's Seq would be Java's List,
+    // and Scala 's List would be Java's LinkedList
+    val l = List(1, 2, 3)
+    println("List elements: " + l)
+
+    // Map
+
+
+
   def controlStructures =
-    println("__________________________________________________")
+    println("--------------------------------------------------")
     println("++++++++++ Control structures start here +++++++++")
-    println("__________________________________________________")
+    println("--------------------------------------------------")
+
+    val x = 10
+
+    // If uses if-then or if-then-else format in scala
+    if x == 10 then println("if1: Equals")
+
+    if x == 10 then
+      println("If2: Equals again")
+      println("Value of x: " + x)
+
+    if x < 5 then
+      println("If3: Less than")
+    else if x > 20 then
+      println("If3: greater than")
+    else
+      println("If3: Equals")
+
+    // For Loops
