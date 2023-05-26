@@ -166,3 +166,7 @@ Once you have multiple Python versions installed, you can use Pyenv to switch be
     ```
 
 # Poetry
+To define Poetry project in an existing project, use:
+```
+poetry init
+```
