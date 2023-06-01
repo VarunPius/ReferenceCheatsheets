@@ -21,7 +21,7 @@ object Chapter2
     advancedDatatypes
     println()
 
-    controlStructures
+    //controlStructures
     println
 
 
@@ -131,15 +131,59 @@ object Chapter2
     println("--------------------------------------------------")
     println("++++++++++ Advanced datatypes start here +++++++++")
     println("--------------------------------------------------")
-    // Arrays, Map, Set, Stack, Queue
 
-    //Seq and List
+    //println("--------------------------------------------------")
+    println("-- Sequence --------------------------------------")
+    sequenceExplanation
+
+    // Arrays, Map, Set, Stack, Queue
+    // Seq and List
+    // Map
     // In Java terms, Scala's Seq would be Java's List,
-    // and Scala 's List would be Java's LinkedList
+    // and Scala's List would be Java's LinkedList
     val l = List(1, 2, 3)
     println("List elements: " + l)
 
-    // Map
+
+  // Seq = well-defined ordering and sequence
+  def sequenceExplanation =
+    val aSequence = Seq(1, 2, 3, 4, 5)
+
+    val secondElement = aSequence(2)
+    val thirdElement = aSequence.apply(3)   // Diff between apply and not using apply is specified in Chp 5
+    println("Accessing elements: " + secondElement + " | " + thirdElement)
+
+    // Other methods:
+    val reversed = aSequence.reverse
+    println("Reversed: " + reversed)
+    val concatSeq = aSequence ++ Seq(6, 7)
+    println("Concatenated: " + concatSeq)
+    val sortedSeq = aSequence.sorted
+    println("Sorted: " + sortedSeq)
+
+    // Map/flatmap, filter, for comprehensions
+    val incrementSeq = aSequence.map(_ + 1)
+    println("Increment Seq: " + incrementSeq)
+    val flatmapSeq = aSequence.flatMap(x => Seq(x, x + 2))
+    println("Flatmap Seq: " + flatmapSeq)
+    val filteredSeq = aSequence.filter(_ % 2 == 0)
+    println("Filtered Seq: " + filteredSeq)
+
+
+  def listExplanation =
+    val aList = List(1, 2, 3, 4, 5, 6)
+    // Special implementation of Seq
+    // Same methods as Seq
+
+    // Extra methods:
+    // head and tail
+    val firstElement = aList.head
+    val rest = aList.tail
+    println("First element: " + firstElement)
+    println("Remaining element: " + rest)
+
+    // appending and prepending
+
 
 
 
