@@ -135,14 +135,14 @@ object Chapter2
     //println("--------------------------------------------------")
     println("-- Sequence --------------------------------------")
     sequenceExplanation
+    println("-- List ------------------------------------------")
+    listExplanation
 
     // Arrays, Map, Set, Stack, Queue
     // Seq and List
     // Map
     // In Java terms, Scala's Seq would be Java's List,
     // and Scala's List would be Java's LinkedList
-    val l = List(1, 2, 3)
-    println("List elements: " + l)
 
 
   // Seq = well-defined ordering and sequence
@@ -168,6 +168,18 @@ object Chapter2
     println("Flatmap Seq: " + flatmapSeq)
     val filteredSeq = aSequence.filter(_ % 2 == 0)
     println("Filtered Seq: " + filteredSeq)
+    val sum = aSequence.foldLeft(0)(_ + _)    // 0 here is initial default value; for double you would use 0.0
+                                              // for string, you would use "
+    println("Sequence Sum: " + sum)
+
+    val donutSeq = Seq("Plain", "Glazed", "Chocolate")
+    val donuts = donutSeq.foldLeft("Tasty ")((a, b) => a + b + " donut ")
+    println("Donuts: " + donuts)    // Donuts: Tasty Plain donut Glazed donut Chocolate donut
+    // println(s"All donuts = ${donutSeq.foldLeft("")((a, b) => a + b + " Donut ")}")   // alternative
+    val strSeq1 = aSequence.mkString
+    val strSeq2 = aSequence.mkString(":")
+    val strSeq3 = aSequence.mkString("[", ", ", "]")     // start, sep, end
+    println("Mkstring: " + strSeq1 + " || " + strSeq2 + " || " + strSeq3)
 
 
   def listExplanation =
@@ -183,7 +195,20 @@ object Chapter2
     println("Remaining element: " + rest)
 
     // appending and prepending
+    val aBiggerList = 0 +: aList :+ 7
+    val prependList = 8 :: aList
+    println("Appending: " + aBiggerList)
+    println("Prepending: " + prependList)
 
+    // fill
+    val scala5x = List.fill(5)("Scala")
+    val scala5x2 = List.fill(2, 3)("JVM")   // similarly can create higher dimension matrix filled with values too
+                                            // such fill(n1, n2, n3 ... nn)
+    println("List Fill: "+ scala5x + " || " + scala5x2)
+
+
+  def rangeExplanation =
+    //yet another implementation of Seq
 
 
 
