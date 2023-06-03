@@ -132,11 +132,14 @@ object Chapter2
     println("++++++++++ Advanced datatypes start here +++++++++")
     println("--------------------------------------------------")
 
-    //println("--------------------------------------------------")
     println("-- Sequence --------------------------------------")
     sequenceExplanation
     println("-- List ------------------------------------------")
     listExplanation
+    println("-- Range ------------------------------------------")
+    rangeExplanation
+    println("-- Array ------------------------------------------")
+    arrayExplanation
 
     // Arrays, Map, Set, Stack, Queue
     // Seq and List
@@ -210,9 +213,16 @@ object Chapter2
 
   def rangeExplanation =
     //yet another implementation of Seq
-    val aRange = 1 to 10
+    val aRangeAlt: Seq[Int] = 1 to 20   // alternative way
+    val aRange = 1 to 10    // Won't hold all values; more like lazy evaluation
+    // will allow all Seq functions, but won't hold all values in memory
+    (1 to 10).foreach(_ => println("Scala"))
 
+    val aNonInclusiveRange = 1 until 10   // in `to` 10 is included; here it's only until 9
+    println("Ranges: " + aRange + " | " + aRangeAlt + " | " + aNonInclusiveRange)
 
+  def arrayExplanation =
+    println()
 
   def controlStructures =
     println("--------------------------------------------------")
