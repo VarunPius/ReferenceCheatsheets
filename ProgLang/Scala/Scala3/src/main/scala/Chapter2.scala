@@ -148,6 +148,7 @@ object Chapter2
   // Seq = well-defined ordering and sequence
   def sequenceExplanation =
     val aSequence = Seq(1, 2, 3, 4, 5)
+    // val aSequence: Seq[Int] = Seq(1, 2, 3, 4, 5)   // alternative approach
 
     val secondElement = aSequence(2)
     val thirdElement = aSequence.apply(3)   // Diff between apply and not using apply is specified in Chp 5
@@ -209,6 +210,7 @@ object Chapter2
 
   def rangeExplanation =
     //yet another implementation of Seq
+    val aRange = 1 to 10
 
 
 
