@@ -221,10 +221,20 @@ object Chapter2
     val aNonInclusiveRange = 1 until 10   // in `to` 10 is included; here it's only until 9
     println("Ranges: " + aRange + " | " + aRangeAlt + " | " + aNonInclusiveRange)
 
+  // Similar to int[] in JVM
   def arrayExplanation =
-    println()
+    val anArray = Array(1, 2, 3, 4, 5, 6, 7)
+    println("Array: " + anArray)
+    // Arrays have access to most Seq APIs
+    // But arrays are NOT Sequences
+    val aSequence = anArray.toIndexedSeq
+    println("Array to Seq: " + aSequence)
+    // Main capability of arrays is it's mutable; Seq, List and ranges we discussed so far are immutable
+    anArray.update(2, 45)   // (idx, value); operation is inplace, no new array is created
+    println("Modified Array: " + anArray)
 
-  def controlStructures =
+
+def controlStructures =
     println("--------------------------------------------------")
     println("++++++++++ Control structures start here +++++++++")
     println("--------------------------------------------------")
