@@ -140,6 +140,8 @@ object Chapter2
     rangeExplanation
     println("-- Array ------------------------------------------")
     arrayExplanation
+    println("-- Vector -----------------------------------------")
+    vectorExplanation
 
     // Arrays, Map, Set, Stack, Queue
     // Seq and List
@@ -184,6 +186,7 @@ object Chapter2
     val strSeq2 = aSequence.mkString(":")
     val strSeq3 = aSequence.mkString("[", ", ", "]")     // start, sep, end
     println("Mkstring: " + strSeq1 + " || " + strSeq2 + " || " + strSeq3)
+    println()
 
 
   def listExplanation =
@@ -209,6 +212,7 @@ object Chapter2
     val scala5x2 = List.fill(2, 3)("JVM")   // similarly can create higher dimension matrix filled with values too
                                             // such fill(n1, n2, n3 ... nn)
     println("List Fill: "+ scala5x + " || " + scala5x2)
+    println()
 
 
   def rangeExplanation =
@@ -217,9 +221,12 @@ object Chapter2
     val aRange = 1 to 10    // Won't hold all values; more like lazy evaluation
     // will allow all Seq functions, but won't hold all values in memory
     (1 to 10).foreach(_ => println("Scala"))
+    (1 to 10).foreach(x => println("Scala" + x))
 
     val aNonInclusiveRange = 1 until 10   // in `to` 10 is included; here it's only until 9
     println("Ranges: " + aRange + " | " + aRangeAlt + " | " + aNonInclusiveRange)
+    println()
+
 
   // Similar to int[] in JVM
   def arrayExplanation =
@@ -232,6 +239,26 @@ object Chapter2
     // Main capability of arrays is it's mutable; Seq, List and ranges we discussed so far are immutable
     anArray.update(2, 45)   // (idx, value); operation is inplace, no new array is created
     println("Modified Array: " + anArray)
+    println()
+
+
+  // Linear collections; fast sequence implementation;
+  // share a lot of Seq APIs but useful when dealing with huge dataset
+  def vectorExplanation =
+    val aVector1: Vector[Int] = Vector(1, 2, 3, 4, 5)
+    val aVector = Vector(1, 2, 3, 4, 5)
+    println("Vector: " + aVector)
+    // Refer benchmark method
+    println()
+
+
+  def vectorVsSeqBenchmark =
+    // def getWriteTime()
+
+    val maxIter = 1000
+    val maxCapacity = 1_000_000
+
+    println()
 
 
 def controlStructures =
