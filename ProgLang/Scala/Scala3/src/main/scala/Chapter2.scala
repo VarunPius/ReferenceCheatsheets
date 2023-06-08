@@ -253,15 +253,14 @@ object Chapter2
 
 
   def vectorVsSeqBenchmark =
-    // def getWriteTime()
+    def getWriteTime() =
+      println()
 
     val maxIter = 1000
     val maxCapacity = 1_000_000
 
-    println()
 
-
-def controlStructures =
+  def controlStructures =
     println("--------------------------------------------------")
     println("++++++++++ Control structures start here +++++++++")
     println("--------------------------------------------------")
