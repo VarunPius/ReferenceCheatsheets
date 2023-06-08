@@ -1,3 +1,5 @@
+import scala.util.Random
+
 /***************************************************************************************************
 Chapter 2: Data and control Structures
 
@@ -248,16 +250,36 @@ object Chapter2
     val aVector1: Vector[Int] = Vector(1, 2, 3, 4, 5)
     val aVector = Vector(1, 2, 3, 4, 5)
     println("Vector: " + aVector)
+
     // Refer benchmark method
-    println()
+    vectorVsSeqBenchmark
 
 
   def vectorVsSeqBenchmark =
-    def getWriteTime() =
-      println()
-
     val maxIter = 1000
     val maxCapacity = 1_000_000
+
+    def getWriteTime(collection: Seq[Int]): Double =    // alt: def getWriteTime(collection: Seq[Int]): Double =
+      val randVal = new Random()
+      val times = for
+        i <- 1 to maxIter
+      yield
+        val idx = randVal.nextInt(maxCapacity)
+        val element = randVal.nextInt()
+        val startTime = System.nanoTime()
+        val updatedCollection = collection.updated(idx, element) //(idx, newVal); updated is method for Seq
+        System.nanoTime() - startTime
+
+      times.foldLeft(0L)(_ + _) * 1.0 / maxIter   //bcz times is IndexedSeq of Long type, we use 0L instead of 0
+      // also valid: times.sum * 1.0 / maxIter
+
+    val numList = (1 to maxCapacity).toList
+    val numVector = (1 to maxCapacity).toVector
+
+    println("Benchmark for List:" + getWriteTime(numList))
+    println("Benchmark for Vector:" + getWriteTime(numVector))
+    // Benchmark for List:2185624.2
+    //Benchmark for Vector:2059.307
 
 
   def controlStructures =
