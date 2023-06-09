@@ -144,10 +144,11 @@ object Chapter2
     arrayExplanation
     println("-- Vector -----------------------------------------")
     vectorExplanation
+    println("-- Sets -------------------------------------------")
+    setsExplanation
 
-    // Arrays, Map, Set, Stack, Queue
-    // Seq and List
-    // Map
+    // Uncomment vectorVsSeqBenchmark call
+    // Arrays, Map, Stack, Queue
     // In Java terms, Scala's Seq would be Java's List,
     // and Scala's List would be Java's LinkedList
 
@@ -252,9 +253,10 @@ object Chapter2
     println("Vector: " + aVector)
 
     // Refer benchmark method
-    vectorVsSeqBenchmark
+    //vectorVsSeqBenchmark
 
 
+  // Vector vs Seq benchmark
   def vectorVsSeqBenchmark =
     val maxIter = 1000
     val maxCapacity = 1_000_000
@@ -282,7 +284,38 @@ object Chapter2
     //Benchmark for Vector:2059.307
 
 
-  def controlStructures =
+  // Hashset
+  def setsExplanation =
+    val aSet = Set(1, 2, 3, 4, 5, 5, 4, 6, 8)
+    println("Set: " + aSet)
+    val contains3 = aSet.contains(3)
+    val contains3_v2 = aSet.apply(3)  // same thing as above
+    val contains3_v3 = aSet(3)        // which means even this is valid
+    println("Set contains 3? " + contains3 + " | " + contains3_v2 + " | " + contains3_v3)
+
+    // Adding/removing
+    val aBiggerSet = aSet + 7
+    println("Appended Set: " + aBiggerSet)
+    val aSmallerSet = aSet - 6
+    println("Removed Set: " + aSmallerSet)
+    //Concatenation
+    val anotherSet = Set(4, 7, 8, 10, 11, 12, 13)
+    val muchBiggerSet = aSet ++ anotherSet
+    val unionSet = aSet.union(anotherSet)
+    val unionSet_v2 = aSet | anotherSet
+    println("Merged Set: " + muchBiggerSet + " | " + unionSet + " | " + unionSet_v2)
+    //Difference
+    val diffSet = aSet -- anotherSet
+    val diffSet_v2 = aSet.diff(anotherSet)
+    println("Diff Set: " + diffSet + " | " + diffSet_v2)
+    //Intersection
+    val intersectSet = aSet.intersect(anotherSet)
+    val intersectSet_v2 = aSet & anotherSet
+    println("Intersection of Set: " + intersectSet + " | " + intersectSet_v2)
+
+
+
+def controlStructures =
     println("--------------------------------------------------")
     println("++++++++++ Control structures start here +++++++++")
     println("--------------------------------------------------")
