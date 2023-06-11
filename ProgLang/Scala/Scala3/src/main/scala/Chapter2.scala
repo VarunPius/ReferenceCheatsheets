@@ -1,3 +1,4 @@
+import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
 
 /***************************************************************************************************
@@ -245,7 +246,16 @@ object Chapter2
     // Main capability of arrays is it's mutable; Seq, List and ranges we discussed so far are immutable
     anArray.update(2, 45)   // (idx, value); operation is inplace, no new array is created
     println("Modified Array: " + anArray)
-    println()
+    // We also have ArrayBuffer
+    // ArrayBuffer is resizable, Array isn't.
+    // If you append an element to an ArrayBuffer, it gets larger.
+    // If you try to append an element to an Array, you get a new array.
+    // Therefore to use Arrays efficiently, you must know its size beforehand.
+    val numsArrayBuffer = ArrayBuffer(1, 2, 3) // ArrayBuffer(1, 2, 3)
+    numsArrayBuffer += 4 // ArrayBuffer(1, 2, 3, 4)
+    numsArrayBuffer ++= List(5, 6) // ArrayBuffer(1, 2, 3, 4, 5, 6)
+    println("Array Buffer: " + numsArrayBuffer)
+    // We can't do this with array as size is fixed
 
 
   // Linear collections; fast sequence implementation;
