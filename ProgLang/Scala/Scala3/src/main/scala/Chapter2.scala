@@ -146,8 +146,11 @@ object Chapter2
     vectorExplanation
     println("-- Sets -------------------------------------------")
     setsExplanation
+    println("-- Maps -------------------------------------------")
+    mapsExplanation
 
-    // Uncomment vectorVsSeqBenchmark call
+
+// Uncomment vectorVsSeqBenchmark call
     // Arrays, Map, Stack, Queue
     // In Java terms, Scala's Seq would be Java's List,
     // and Scala's List would be Java's LinkedList
@@ -251,7 +254,6 @@ object Chapter2
     val aVector1: Vector[Int] = Vector(1, 2, 3, 4, 5)
     val aVector = Vector(1, 2, 3, 4, 5)
     println("Vector: " + aVector)
-
     // Refer benchmark method
     //vectorVsSeqBenchmark
 
@@ -281,7 +283,7 @@ object Chapter2
     println("Benchmark for List:" + getWriteTime(numList))
     println("Benchmark for Vector:" + getWriteTime(numVector))
     // Benchmark for List:2185624.2
-    //Benchmark for Vector:2059.307
+    // Benchmark for Vector:2059.307
 
 
   // Hashset
@@ -314,8 +316,23 @@ object Chapter2
     println("Intersection of Set: " + intersectSet + " | " + intersectSet_v2)
 
 
+  def mapsExplanation =
+    val aMap = Map(
+      "AK" -> "Alaska",
+      "AL" -> "Alabama"
+    )
+    for (k, v) <- aMap
+    do
+      println(s"Key: $k, Value: $v")
 
-def controlStructures =
+    // Accessing map elements
+    val alValue = aMap("AL")        // apply method will throw an error in case key is not present; so use next option
+    val caValue = aMap.get("CA")    // for default values
+    val waValue = aMap.getOrElse("WA", "Washington")
+    //val waValue = aMap.withDefault("WA" => "Washington")
+    println("Map Values: " + alValue + " | " + caValue + " | " + waValue)
+
+  def controlStructures =
     println("--------------------------------------------------")
     println("++++++++++ Control structures start here +++++++++")
     println("--------------------------------------------------")
