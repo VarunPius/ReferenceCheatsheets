@@ -151,8 +151,8 @@ object Chapter2
     mapsExplanation
 
 
-// Uncomment vectorVsSeqBenchmark call
-    // Arrays, Map, Stack, Queue
+    // Uncomment vectorVsSeqBenchmark call
+    // Stack, Queue
     // In Java terms, Scala's Seq would be Java's List,
     // and Scala's List would be Java's LinkedList
 
@@ -255,7 +255,11 @@ object Chapter2
     numsArrayBuffer += 4 // ArrayBuffer(1, 2, 3, 4)
     numsArrayBuffer ++= List(5, 6) // ArrayBuffer(1, 2, 3, 4, 5, 6)
     println("Array Buffer: " + numsArrayBuffer)
-    // We can't do this with array as size is fixed
+    // We can't do this with array as size is fixed; that's the advtg of Array buffer
+    val a = ArrayBuffer.range('a', 'h') // ArrayBuffer(a, b, c, d, e, f, g)
+    a -= 'a'                            // ArrayBuffer(b, c, d, e, f, g)
+    a --= Seq('b', 'c')                 // ArrayBuffer(d, e, f, g)
+    a --= Set('d', 'e')                 // ArrayBuffer(f, g)
 
 
   // Linear collections; fast sequence implementation;
@@ -341,6 +345,21 @@ object Chapter2
     val waValue = aMap.getOrElse("WA", "Washington")
     //val waValue = aMap.withDefault("WA" => "Washington")
     println("Map Values: " + alValue + " | " + caValue + " | " + waValue)
+
+    // Adding elements to map:
+    val aMap2 = aMap + ("FL" -> "Florida")
+    val aMap3 = aMap2 ++ Seq("MI"->"Michigan", "MA"->"Massachusetts")
+    for (k, v) <- aMap3 do println(s"Updated Map: $k => $v")
+
+    // Removing elements from map:
+    val aMap4 = aMap3 - "PA"
+    val aMap5 = aMap3 - "WA" - "CA" - "FL"
+    println("Removed map: " + aMap5)
+
+    // Updating elements in map:
+    val aMap6 = aMap3.updated("CA", "Canada")
+    println("Updated Map: " + aMap6)
+
 
   def controlStructures =
     println("--------------------------------------------------")
