@@ -360,26 +360,3 @@ object Chapter2
     val aMap6 = aMap3.updated("CA", "Canada")
     println("Updated Map: " + aMap6)
 
-
-  def controlStructures =
-    println("--------------------------------------------------")
-    println("++++++++++ Control structures start here +++++++++")
-    println("--------------------------------------------------")
-
-    val x = 10
-
-    // If uses if-then or if-then-else format in scala
-    if x == 10 then println("if1: Equals")
-
-    if x == 10 then
-      println("If2: Equals again")
-      println("Value of x: " + x)
-
-    if x < 5 then
-      println("If3: Less than")
-    else if x > 20 then
-      println("If3: greater than")
-    else
-      println("If3: Equals")
-
-    // For Loops
