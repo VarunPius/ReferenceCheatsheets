@@ -42,8 +42,23 @@ object Chapter3 {
       println("If3: greater than")
     else
       println("If3: Equals")
+    // YOu may also include an optional end if statement; though not necessary
 
     // For Loops
+    val idx = Seq(1,2,3,4)
+    for i <- idx do println("For loop index: " + i)
+    for i <- idx
+    do
+      val x = i * 2
+      println(s"For Calc: i = $i | x = $x")
+
+    //Multiple generators:
+    for
+      i <- 1 to 2
+      j <- 'a' to 'b'
+      k <- 1 to 10 by 5
+    do
+      println(s"Multiple for: i = $i | j = $j | k = $k")
 
 
   def addNum(a:Int, b:Int):Int=
