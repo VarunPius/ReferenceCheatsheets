@@ -28,6 +28,7 @@ object Chapter3 {
     println("++++++++++ Control structures start here +++++++++")
     println("--------------------------------------------------")
 
+    println("-- If Block --------------------------------------")
     val x = 10
     // If uses if-then or if-then-else format in scala
     if x == 10 then println("if1: Equals")
@@ -45,6 +46,7 @@ object Chapter3 {
     // YOu may also include an optional end if statement; though not necessary
 
     // For Loops
+    println("-- For loop --------------------------------------")
     val idx = Seq(1,2,3,4)
     for i <- idx do println("For loop index: " + i)
     for i <- idx
@@ -59,6 +61,13 @@ object Chapter3 {
       k <- 1 to 10 by 5
     do
       println(s"Multiple for: i = $i | j = $j | k = $k")
+
+    // Guards: for loops can also contain if statements, which are known as guards:
+    for
+      i <- 1 to 5
+      if i%2 == 0
+    do
+      println(s"For Loop guards: $i")
 
 
   def addNum(a:Int, b:Int):Int=
