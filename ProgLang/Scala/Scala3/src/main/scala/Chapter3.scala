@@ -69,6 +69,18 @@ object Chapter3 {
     do
       println(s"For Loop guards: $i")
 
+    for
+      i <- 1 to 10
+      if i > 3
+      if i <= 6
+      if i%2 == 0
+    do
+      println(s"Multiple for loop Guards: $i")
+
+    // Loop with maps
+    val states = Map("CA" -> "California", "AB" -> "Alberta")
+    for (abbr, state) <- states do println(s"$abbr : $state")
+
 
   def addNum(a:Int, b:Int):Int=
     a + b
