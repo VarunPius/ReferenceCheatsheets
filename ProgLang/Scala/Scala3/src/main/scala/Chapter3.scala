@@ -81,6 +81,41 @@ object Chapter3 {
     val states = Map("CA" -> "California", "AB" -> "Alberta")
     for (abbr, state) <- states do println(s"$abbr : $state")
 
+    // for loop expressions:
+    forExpressions
+    val aForBody = forAsBodyOfMethod(List(1,3,5,6,7))
+    println(s"For expressions as body of method: $aForBody")
+
+    // While loop
+
+
+  def forExpressions =
+    println("-- For expressions -------------------------------")
+    // while in previous examples we used for loops to print values, we can also use them to return values.
+    // This is called `for expressions` and done using the `yield` keyword
+    val list =
+      for i <-10 to 12
+      yield i*2
+    println(s"For expressions: $list")
+
+    val list2 = (10 to 12).map(i => i*3)
+    println(s"For expression2: $list2")
+
+    val names = Seq("_olivia", "_isabella")
+    val capNames = for name <- names yield
+      val nameWOUnderscore = name.drop(1)
+      val capName = nameWOUnderscore.capitalize
+      capName
+    println(s"For expressions complex example: $capNames")
+
+
+  def forAsBodyOfMethod(xs: List[Int]): List[Int] =
+    for
+      x <- xs
+      if x >= 5
+      if x <= 10
+    yield x
+
 
   def addNum(a:Int, b:Int):Int=
     a + b
