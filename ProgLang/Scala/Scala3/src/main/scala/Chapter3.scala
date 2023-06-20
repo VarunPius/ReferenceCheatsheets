@@ -87,6 +87,15 @@ object Chapter3 {
     println(s"For expressions as body of method: $aForBody")
 
     // While loop
+    println("-- While loop ------------------------------------")
+    var i = 0
+    while i < 3 do
+      println(s"While loop: $i")
+      i += 1      // needs to be var and not val
+
+    // Match expressions
+    println("-- Match expressions -----------------------------")
+    matchExpressions
 
 
   def forExpressions =
@@ -115,6 +124,10 @@ object Chapter3 {
       if x >= 5
       if x <= 10
     yield x
+
+
+  def matchExpressions =
+    println("Test")
 
 
   def addNum(a:Int, b:Int):Int=
