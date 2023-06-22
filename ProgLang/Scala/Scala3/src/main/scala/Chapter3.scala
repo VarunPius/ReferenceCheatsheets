@@ -12,6 +12,9 @@ object Chapter3 {
     println("Chapter 3: Methods & control structures")
     controlStructures
 
+    println("--------------------------------------------------")
+    println("++++++++++ Methods and functions start here ++++++")
+    println("--------------------------------------------------")
     val sum1 = addNum(2,3)
     val sum2 = addNum2(4,5)
     println("Sum: " + sum1 + " | " + sum2)
@@ -127,7 +130,18 @@ object Chapter3 {
 
 
   def matchExpressions =
-    println("Test")
+    val i = 3
+    val day = i match
+      case 0 => "Sunday"
+      case 1 => "Monday"
+      case 2 => "Tuesday"
+      case 3 => "Wednesday"
+      case 4 => "Thursday"
+      case 5 => "Friday"
+      case 6 => "Saturday"
+      case _ => "invalid day"
+    println(s"MatchExpr: Day: $day")
+
 
 
   def addNum(a:Int, b:Int):Int=
