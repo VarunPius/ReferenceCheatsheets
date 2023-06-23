@@ -130,7 +130,7 @@ object Chapter3 {
 
 
   def matchExpressions =
-    val i = 3
+    val i = 5
     val day = i match
       case 0 => "Sunday"
       case 1 => "Monday"
@@ -142,6 +142,33 @@ object Chapter3 {
       case _ => "invalid day"
     println(s"MatchExpr: Day: $day")
 
+    // When you need to access the catch-all, default value in a match expression,
+    // just provide a variable name on the left side of the case statement instead of _,
+    // and then use that variable name on the right side of the statement as needed:
+    val N = 4
+    i match
+      case 0 => println("defaultMatch: 0")
+      case 1 => println("defaultMatch: 1")
+      case N => println("defaultMatch: 12")
+      case n => println(s"defaultMatch: You chose $n")
+
+    // Multiple matches in single line:
+    var x = 3
+    val evenOdd = x match
+      case 1 | 3 | 5 | 7 | 9 => println("evenOdd: Odd number")
+      case 0 | 2 | 4 | 6 | 8 => println("evenOdd: Even number")
+      case _ => println("evenOdd: Invalid number")
+
+    // Match expression: using if
+    x = 2
+    val party = 4
+    party match
+      case 1 => println("Party: Stag")
+      case x if x == 2 || x == 3 => println("Party: 2's a party, 3's a crowd")
+      case x if x > 3 => println("Party: 4+ that's a party")
+      case _ => println("Party: you don't have anyone")
+    // here x denotes party AND NOT the value x; this is important to remember
+    
 
 
   def addNum(a:Int, b:Int):Int=
