@@ -10,6 +10,10 @@ This chapter includes:
 object Chapter3 {
   @main def mainChp3 =
     println("Chapter 3: Methods & control structures")
+    
+    println("--------------------------------------------------")
+    println("++++++++++ Control structures start here +++++++++")
+    println("--------------------------------------------------")
     controlStructures
 
     println("--------------------------------------------------")
@@ -27,10 +31,6 @@ object Chapter3 {
 
 
   def controlStructures =
-    println("--------------------------------------------------")
-    println("++++++++++ Control structures start here +++++++++")
-    println("--------------------------------------------------")
-
     println("-- If Block --------------------------------------")
     val x = 10
     // If uses if-then or if-then-else format in scala
@@ -168,7 +168,7 @@ object Chapter3 {
       case x if x > 3 => println("Party: 4+ that's a party")
       case _ => println("Party: you don't have anyone")
     // here x denotes party AND NOT the value x; this is important to remember
-    
+
 
 
   def addNum(a:Int, b:Int):Int=
