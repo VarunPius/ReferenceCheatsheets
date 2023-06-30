@@ -130,7 +130,7 @@ object Chapter3 {
 
 
   def matchExpressions =
-    val i = 5
+    val i = 4
     val day = i match
       case 0 => "Sunday"
       case 1 => "Monday"
@@ -167,7 +167,9 @@ object Chapter3 {
       case x if x == 2 || x == 3 => println("Party: 2's a party, 3's a crowd")
       case x if x > 3 => println("Party: 4+ that's a party")
       case _ => println("Party: you don't have anyone")
-    // here x denotes party AND NOT the value x; this is important to remember
+      // here x denotes party AND NOT the value x; this is important to remember
+      // this is different from above
+      
 
 
 
