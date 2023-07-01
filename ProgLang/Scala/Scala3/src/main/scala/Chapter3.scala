@@ -169,8 +169,17 @@ object Chapter3 {
       case _ => println("Party: you don't have anyone")
       // here x denotes party AND NOT the value x; this is important to remember
       // this is different from above
-      
 
+    // Match expr as body of method:
+    println("isTruthy: " + isTruthy(0))
+    println("isTruthy: " + isTruthy(1))
+    println("isTruthy: " + isTruthy("asd"))
+    println("isTruthy: " + isTruthy(""))
+
+
+  def isTruthy(a: Matchable) = a match
+    case 0 | "" | false => false
+    case _                => true
 
 
   def addNum(a:Int, b:Int):Int=
