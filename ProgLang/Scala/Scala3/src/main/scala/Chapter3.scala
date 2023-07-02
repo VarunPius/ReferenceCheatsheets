@@ -29,6 +29,10 @@ object Chapter3 {
     val prod3 = prodNum2()
     println("Product: " + prod1 + " | " + prod2 + " | " + prod3)
 
+    println("--------------------------------------------------")
+    println("++++++++ Higher order methods and functions ++++++")
+    println("--------------------------------------------------")
+    higherOrderFunctions
 
   def controlStructures =
     println("-- If Block --------------------------------------")
@@ -238,7 +242,7 @@ object Chapter3 {
     // the default wildcard pattern
     case _ => "Unknown"
   */
-  
+
 
   def addNum(a:Int, b:Int):Int=
     a + b
@@ -252,5 +256,55 @@ object Chapter3 {
 
   def prodNum2(a: Int = 24, b: Int = 23) =
     a * b
+
+
+  // Higher order functions
+  def higherOrderFunctions =
+    sayHello(printHello)
+    sayHello(printBonjour)
+    println("Higher Order | executeAndPrint Add : ")
+    executeAndPrint(add, 3, 4)
+    println("Higher Order | executeAndPrint Subtract : ")
+    executeAndPrint(subtract, 7, 9)
+    executeNTimes(helloNTimes, 3)
+
+
+  // passing functions as parameters
+  def sayHello(f: () => Unit): Unit = f()
+  def printHello() = println("Higher order Hello")
+  def printBonjour() = println("Higher order Bonjour")
+  /*
+  - `f` is the name of the function input parameter.
+    It’s just like naming a String parameter `s` or an Int parameter `i`.
+  - The type signature of f specifies the type of the functions this method will accept.
+  - The () portion of f’s signature (on the left side of the => symbol) states that f takes no input parameters.
+  - The Unit portion of the signature (on the right side of the => symbol) indicates that f should not return a meaningful result.
+  - Looking back at the body of the sayHello method (on the right side of the = symbol), the f() statement there invokes the function that’s passed in.
+  */
+
+  def add(a: Int, b: Int): Int = a + b
+  def subtract(a: Int, b: Int) = a - b
+  def multiply(a: Int, b: Int) = a * b
+  def executeAndPrint(f:(Int, Int) => Int, i: Int, j: Int): Unit =
+    println(s"($i, $j) : " + f(i, j))
+
+  def executeNTimes(f: () => Unit, n: Int) =
+    for i <- 1 to n do f()
+
+  def helloNTimes() = println("Hello N Times")
+
+  // Methods vs Functions
+  /*
+  Historically, methods have been a part of the definition of a class,
+    although in Scala 3 you can now have methods outside of classes, such as Toplevel definitions and extension methods.
+
+  Unlike methods, functions are complete objects themselves, making them first-class entities.
+  Their syntax is also different.
+  This example shows how to define a method and a function that perform the same task,
+    determining if the given integer is even:
+  */
+  def isEvenMethod(i: Int) = i % 2 == 0       // a method
+  val isEvenFunction = (i: Int) => i % 2 == 0 // a function
+
 
 }
