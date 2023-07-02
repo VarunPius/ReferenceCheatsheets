@@ -170,6 +170,13 @@ object Chapter3 {
       // here x denotes party AND NOT the value x; this is important to remember
       // this is different from above
 
+    val r = 14
+    r match
+      case x if 0 to 9 contains x => println("Match Range case1")
+      case x if 10 to 19 contains x => println("Match Range case2")
+      case _ => println("Match Range case3")
+
+
     // Match expr as body of method:
     println("isTruthy: " + isTruthy(0))
     println("isTruthy: " + isTruthy(1))
@@ -181,6 +188,57 @@ object Chapter3 {
     case 0 | "" | false => false
     case _                => true
 
+  /*
+  More Match Expressions:
+  # Case classes:
+  case class Person(name: String)
+
+  def speak(p: Person) = p match
+    case Person(name) if name == "Fred" => println(s"$name says, Yubba dubba doo")
+    case Person(name) if name == "Bam Bam" => println(s"$name says, Bam bam!")
+    case _ => println("Watch the Flintstones!")
+
+  speak(Person("Fred"))      // "Fred says, Yubba dubba doo"
+  speak(Person("Bam Bam"))   // "Bam Bam says, Bam bam!"
+  */
+
+  /*
+  // match expressions with different types
+  def pattern(x: Matchable): String = x match
+
+    // constant patterns
+    case 0 => "zero"
+    case true => "true"
+    case "hello" => "you said 'hello'"
+    case Nil => "an empty List"
+
+    // sequence patterns
+    case List(0, _, _) => "a 3-element list with 0 as the first element"
+    case List(1, _*) => "list, starts with 1, has any number of elements"
+    case Vector(1, _*) => "vector, starts w/ 1, has any number of elements"
+
+    // tuple patterns
+    case (a, b) => s"got $a and $b"
+    case (a, b, c) => s"got $a, $b, and $c"
+
+    // constructor patterns
+    case Person(first, "Alexander") => s"Alexander, first name = $first"
+    case Dog("Zeus") => "found a dog named Zeus"
+
+    // type test patterns
+    case s: String => s"got a string: $s"
+    case i: Int => s"got an int: $i"
+    case f: Float => s"got a float: $f"
+    case a: Array[Int] => s"array of int: ${a.mkString(",")}"
+    case as: Array[String] => s"string array: ${as.mkString(",")}"
+    case d: Dog => s"dog: ${d.name}"
+    case list: List[?] => s"got a List: $list"
+    case m: Map[?, ?] => m.toString
+
+    // the default wildcard pattern
+    case _ => "Unknown"
+  */
+  
 
   def addNum(a:Int, b:Int):Int=
     a + b
