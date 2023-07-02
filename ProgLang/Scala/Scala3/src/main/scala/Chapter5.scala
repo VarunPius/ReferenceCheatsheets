@@ -173,8 +173,6 @@ object Chapter5 {
     ("Jane", 123454),
     "Adam" -> 324545      // equivalent to ("Adam", 324545)
   )
-
-
 }
 
 /*
