@@ -2,7 +2,14 @@ package main
 
 import "fmt"
 
-func HelloWorld () {
-	fmt.Println("Hello World!")
+func chapter1() {
+    fmt.Println("------------------------------------------------")
+    fmt.Println("------------------ Chapter 1 -------------------")
+    fmt.Println("------------------------------------------------")
 
+    HelloWorld()
+}
+
+func HelloWorld () {
+    fmt.Println("Hello World!")
 }
