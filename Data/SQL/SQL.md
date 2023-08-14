@@ -16,3 +16,8 @@ https://www.sqltutorial.org/sql-window-functions/
 # Amazon
 https://www.sqlshack.com/internals-of-physical-join-operators-nested-loops-join-hash-match-join-merge-join-in-sql-server/
 https://www.datacamp.com/tutorial/introduction-indexing-sql
+
+# String_agg
+https://www.postgresqltutorial.com/postgresql-aggregate-functions/postgresql-string_agg-function/
+
+# UNNEST
