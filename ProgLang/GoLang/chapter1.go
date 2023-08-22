@@ -12,4 +12,6 @@ func chapter1() {
 
 func HelloWorld () {
     fmt.Println("Hello World!")
+    fmt.Println()
+
 }
