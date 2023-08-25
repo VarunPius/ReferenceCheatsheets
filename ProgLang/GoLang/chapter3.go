@@ -17,6 +17,8 @@ func chapter3() {
     fmt.Println()
 
     evalForLoop()
+    evalIfElseCondition()
+    evalSwitchCase()
 
 }
 
@@ -50,7 +52,22 @@ func evalForLoop() {
 
 func evalIfElseCondition() {
     fmt.Println("----- If/Else Explanation")
-    
+    n := 5
+
+    if n < 5 {
+        fmt.Println("If: number lass than 5")
+    } else if (n >= 5) && (n < 10) {
+        fmt.Println("Else If: Number greater than 5 and less than 10")
+    } else {
+        fmt.Println("Else: Number greater than 10")
+    }
     
     fmt.Println()
+}
+
+func func evalSwitchCase() {
+    fmt.Println("----- Switch Case Explanation")
+
+    fmt.Println()
+
 }
