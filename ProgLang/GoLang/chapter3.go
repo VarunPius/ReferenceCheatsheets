@@ -65,8 +65,18 @@ func evalIfElseCondition() {
     fmt.Println()
 }
 
-func func evalSwitchCase() {
+func evalSwitchCase() {
     fmt.Println("----- Switch Case Explanation")
+
+    i := 2
+    switch i {
+    case 1:
+        fmt.Println("Switch1_1: ", i)
+    case 2:
+        fmt.Println("Switch1_2:", i)
+    case 3:
+        fmt.Println("Switch1_3:", i)
+    }
 
     fmt.Println()
 
