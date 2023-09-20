@@ -8,6 +8,7 @@ package main
 
 import (
     "fmt"
+    "time"
 )
 
 func chapter3() {
@@ -19,6 +20,7 @@ func chapter3() {
     evalForLoop()
     evalIfElseCondition()
     evalSwitchCase()
+    evalSwitchTime()
 
 }
 
@@ -79,5 +81,25 @@ func evalSwitchCase() {
     }
 
     fmt.Println()
+}
 
+func evalSwitchTime() {
+    fmt.Println("----- Switch Case Time Example")
+
+    switch time.Now().Weekday() {
+    case time.Saturday, time.Sunday :
+        fmt.Println("Switch2_1: It's a Weekend")
+    default:
+        fmt.Println("Switch2_2: It's a weekday")
+    }
+
+    t := time.Now()
+    switch  {
+    case t.Hour() < 12 :
+        fmt.Println("Switch3_1: It's morning")
+    default:
+        fmt.Println("Switch3_2: After Noon")
+    }
+
+    fmt.Println()
 }
