@@ -8,6 +8,7 @@ package main
 
 import (
     "fmt"
+    "slices"
 )
 
 func chapter4() {
@@ -17,6 +18,7 @@ func chapter4() {
     fmt.Println()
 
     evalArrays()
+    evalSlices()
 }
 
 func evalArrays() {
@@ -40,5 +42,9 @@ func evalArrays() {
     fmt.Println("2-D array:", twoD)
 
     fmt.Println()
+}
+
+func evalSlices() {
+
 }
 
