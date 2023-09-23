@@ -22,6 +22,7 @@ func chapter4() {
 }
 
 func evalArrays() {
+    fmt.Println("----- Arrays Explanation")
     var a_i [5]int
     fmt.Println("Array 1:", a_i)
 
@@ -45,6 +46,13 @@ func evalArrays() {
 }
 
 func evalSlices() {
+    fmt.Println("----- Slices Explanation")
+    // slices are typed only by the elements they contain (not the number of elements).
+    // An uninitialized slice equals to nil and has length 0
+    
+    var s_i = []string
+    fmt.Println("Slices Initialized: ", s_i == nil, len(s_i))
 
+    fmt.Println()
 }
 
