@@ -8,7 +8,7 @@ package main
 
 import (
     "fmt"
-    "slices"
+    //"slices"
 )
 
 func chapter4() {
@@ -48,10 +48,24 @@ func evalArrays() {
 func evalSlices() {
     fmt.Println("----- Slices Explanation")
     // slices are typed only by the elements they contain (not the number of elements).
+
     // An uninitialized slice equals to nil and has length 0
-    
-    var s_i = []string
-    fmt.Println("Slices Initialized: ", s_i == nil, len(s_i))
+    var s_s []string
+    fmt.Println("Slices Initialized: ", s_s == nil, len(s_s))
+
+    // Creating slice of non-zero length
+    s_s = make([]string, 4)         // should already be initialized
+                                    // else use :=
+    fmt.Println("Slices non-zero: ", s_s, ", Length: ", len(s_s), ", Capacity: ", cap(s_s))
+
+    s_s[0] = "a"
+    s_s[3] = "c"
+    fmt.Println("Set: ", s_s, ", Capacity: ", cap(s_s))
+
+    // Length vs Capacity
+    s_i := make([]int, 3, 6)
+    fmt.Println("Slice2: ", s_i, ", Length: ", len(s_i), ", Capacity: ", cap(s_i))
+
 
     fmt.Println()
 }
