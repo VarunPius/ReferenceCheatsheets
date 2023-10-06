@@ -1,11 +1,11 @@
-https://medium.com/expedia-group-tech/start-your-journey-with-apache-spark-part-1-3575b20ee088
-https://medium.com/expedia-group-tech/start-your-journey-with-apache-spark-part-2-682891efda4b
-https://medium.com/expedia-group-tech/start-your-journey-with-apache-spark-part-3-1ae77c05187
+x https://medium.com/expedia-group-tech/start-your-journey-with-apache-spark-part-1-3575b20ee088
+- `https://medium.com/expedia-group-tech/start-your-journey-with-apache-spark-part-2-682891efda4b
+- `https://medium.com/expedia-group-tech/start-your-journey-with-apache-spark-part-3-1ae77c05187
 
-https://medium.com/expedia-group-tech/deep-dive-into-apache-spark-array-functions-720b8fbfa729
-https://medium.com/expedia-group-tech/deep-dive-into-apache-spark-window-functions-7b4e39ad3c86
-https://medium.com/expedia-group-tech/deep-dive-into-apache-spark-datetime-functions-b66de737950a
-https://medium.com/expedia-group-tech/working-with-json-in-apache-spark-1ecf553c2a8c
+- https://medium.com/expedia-group-tech/deep-dive-into-apache-spark-array-functions-720b8fbfa729
+- https://medium.com/expedia-group-tech/deep-dive-into-apache-spark-window-functions-7b4e39ad3c86
+- https://medium.com/expedia-group-tech/deep-dive-into-apache-spark-datetime-functions-b66de737950a
+- https://medium.com/expedia-group-tech/working-with-json-in-apache-spark-1ecf553c2a8c
 
 https://selectfrom.dev/apache-spark-coalesce-and-repartition-20ce793ae5d7
 https://selectfrom.dev/repartition-vs-coalesce-in-apache-spark-82726c7c7d66
