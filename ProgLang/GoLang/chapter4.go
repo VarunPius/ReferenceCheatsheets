@@ -90,6 +90,8 @@ func evalSlices() {
     fmt.Println("Slice: Init2: ", i_1)
 
 
+
+
     // Length vs Capacity
     s_i := make([]int, 3, 6)        // Initialize with length and capacity
     fmt.Println("Slice2: ", s_i, ", Length: ", len(s_i), ", Capacity: ", cap(s_i))
@@ -101,7 +103,7 @@ func slicesDetailed() {
     fmt.Println("----- Slices Explanation: Length vs Capacity")
 
     s := make([]int, 3, 6)
-    fmt.Println(s)
+    fmt.Println("Slice2: ", s, ", Length: ", len(s), ", Capacity: ", cap(s))
 
     fmt.Println()
 
