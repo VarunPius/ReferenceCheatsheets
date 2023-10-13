@@ -73,7 +73,7 @@ func evalSlices() {
     fmt.Println("Slice Copy 1: ", s_c, s_s)
     s_c[0] = "x"
     s_c[1] = "y"
-    fmt.Println("Slice Copy 2: ", s_c, s_s)
+    fmt.Println("Slice Copy 2: ", s_c, s_s) // You will see that the copies are different
 
 
     // Length vs Capacity
