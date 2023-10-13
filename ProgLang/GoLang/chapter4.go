@@ -19,6 +19,7 @@ func chapter4() {
 
     evalArrays()
     evalSlices()
+    evalMaps()
 }
 
 func evalArrays() {
@@ -110,7 +111,6 @@ func evalSlices() {
     }
     */
 
-
     fmt.Println()
 }
 
@@ -121,5 +121,16 @@ func slicesDetailed() {
     fmt.Println("Slice2: ", s, ", Length: ", len(s), ", Capacity: ", cap(s))
 
     fmt.Println()
+}
 
+func evalMaps() {
+    fmt.Println("----- Maps Explanation:")
+    // To create an empty map, use the builtin make: make(map[key-type]val-type)
+
+    mp1 := make(map[string]int)
+    mp1["k1"] = 1
+    mp1["k2"] = 2
+    fmt.Println("Map:", mp1)
+
+    fmt.Println()
 }
