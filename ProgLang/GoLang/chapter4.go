@@ -51,7 +51,7 @@ func evalSlices() {
 
     // An uninitialized slice equals to nil and has length 0
     var s_s []string
-    fmt.Println("Slices Initialized: ", s_s == nil, len(s_s))
+    fmt.Println("Slices Initialized: ", s_s == nil, len(s_s) == 0, len(s_s))
 
     // Creating slice of non-zero length
     s_s = make([]string, 4)         // should already be initialized
@@ -60,13 +60,35 @@ func evalSlices() {
 
     s_s[0] = "a"
     s_s[3] = "c"
-    fmt.Println("Set: ", s_s, ", Capacity: ", cap(s_s))
+    fmt.Println("Set: ", s_s, ", Get: ", s_s[3], ", Capacity: ", cap(s_s))
+
+    s_s = append(s_s, "d")
+    s_s = append(s_s, "e")
+    fmt.Println("Slice Append:", s_s, ", Length: ", len(s_s))
+
+
+    // Copy slice:
+    s_c := make([]string, len(s_s))
+    copy(s_c, s_s)
+    fmt.Println("Slice Copy 1: ", s_c, s_s)
+    s_c[0] = "x"
+    s_c[1] = "y"
+    fmt.Println("Slice Copy 2: ", s_c, s_s)
+
 
     // Length vs Capacity
-    s_i := make([]int, 3, 6)
+    s_i := make([]int, 3, 6)        // Initialize with length and capacity
     fmt.Println("Slice2: ", s_i, ", Length: ", len(s_i), ", Capacity: ", cap(s_i))
-
 
     fmt.Println()
 }
 
+func slicesDetailed() {
+    fmt.Println("----- Slices Explanation: Length vs Capacity")
+
+    s := make([]int, 3, 6)
+    fmt.Println(s)
+
+    fmt.Println()
+
+}
