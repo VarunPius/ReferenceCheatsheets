@@ -85,6 +85,10 @@ func evalSlices() {
     fmt.Println("Slice: Part2: ", s_part2, s_part3)
 
 
+    // Initialing slice at declaration:
+    i_1 := []int{1, 2, 3, 4}
+    fmt.Println("Slice: Init2: ", i_1)
+
 
     // Length vs Capacity
     s_i := make([]int, 3, 6)        // Initialize with length and capacity
