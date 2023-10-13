@@ -90,6 +90,17 @@ func evalSlices() {
     fmt.Println("Slice: Init2: ", i_1)
 
 
+    // Multidimensional slices:
+    twoD := make([][]int, 3)
+    for i := 0; i < 3; i++ {
+        inner := i + 1
+        twoD[i] = make([]int, inner)
+        for j := 0; j < inner; j++ {
+            twoD[i][j] = i + j
+        }
+    }
+    fmt.Println("2D Slice:", twoD)
+
     /*
     // Issue in importing in standard library
     // Slice packages:
@@ -99,10 +110,6 @@ func evalSlices() {
     }
     */
 
-
-    // Length vs Capacity
-    s_i := make([]int, 3, 6)        // Initialize with length and capacity
-    fmt.Println("Slice2: ", s_i, ", Length: ", len(s_i), ", Capacity: ", cap(s_i))
 
     fmt.Println()
 }
