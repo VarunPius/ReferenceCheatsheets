@@ -8,7 +8,7 @@ package main
 
 import (
     "fmt"
-    "slices"
+    //"slices"
 )
 
 func chapter4() {
@@ -90,11 +90,15 @@ func evalSlices() {
     fmt.Println("Slice: Init2: ", i_1)
 
 
+    /*
+    // Issue in importing in standard library
     // Slice packages:
     i_2 := []int{1, 2, 3, 4}
     if slices.Equal(i_1, i_2) {
         fmt.Println("Slices are equal")
     }
+    */
+
 
     // Length vs Capacity
     s_i := make([]int, 3, 6)        // Initialize with length and capacity
