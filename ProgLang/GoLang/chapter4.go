@@ -73,7 +73,17 @@ func evalSlices() {
     fmt.Println("Slice Copy 1: ", s_c, s_s)
     s_c[0] = "x"
     s_c[1] = "y"
-    fmt.Println("Slice Copy 2: ", s_c, s_s) // You will see that the copies are different
+    s_c[2] = "z"
+    fmt.Println("Slice Copy 2: ", s_c, s_s) // You will see that the slices are different
+
+
+    // "Slicing" or selecting subset
+    s_part := s_c[2:5]                      // bounds should not exceed length limits else error
+    fmt.Println("Slice: Part: ", s_part)
+    s_part2 := s_c[:4]
+    s_part3 := s_c[3:]
+    fmt.Println("Slice: Part2: ", s_part2, s_part3)
+
 
 
     // Length vs Capacity
