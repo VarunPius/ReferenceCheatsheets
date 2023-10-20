@@ -4,8 +4,8 @@ func main() {
 	// There are names of methods; NOT FILE name. The methods are inside respective files
 	//chapter1()
 	//chapter2()
-	//chapter3()
-	chapter4()
+	chapter3()
+	//chapter4()
 }
 
 
