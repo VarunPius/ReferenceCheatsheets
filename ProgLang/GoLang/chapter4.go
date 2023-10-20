@@ -2,6 +2,9 @@
 Chapter 4:
     includes:
     - Data structures
+        - Arrays
+        - Slices
+        - Maps
 */
 
 package main
