@@ -139,9 +139,9 @@ func evalMaps() {
 
     delete(mp1, "k2")
     fmt.Println("Map delete key:", mp1)
-    clear(mp1)
-    fmt.Println("Map delete key:", mp1)
+    clear(mp1)      // GoLang 1.21+; before that iterate inside loop and delete
+    fmt.Println("Map clear key:", mp1)
 
-    
+
     fmt.Println()
 }
