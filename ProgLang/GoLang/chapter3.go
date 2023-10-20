@@ -79,7 +79,9 @@ func evalRange() {
     }
 
     //range over string
-
+    for i, c := range "golang" {
+        fmt.Println("Range String:", i, c)
+    }
 
     fmt.Println()
 }
