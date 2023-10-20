@@ -18,6 +18,7 @@ func chapter3() {
     fmt.Println()
 
     evalForLoop()
+    evalRange()
     evalIfElseCondition()
     evalSwitchCase()
     evalSwitchTime()
@@ -50,6 +51,27 @@ func evalForLoop() {
     }
     fmt.Println()
     
+}
+
+func evalRange() {
+    fmt.Println("----- Range Explanation")
+    nums := []int{1, 2, 3, 4, 5, 6, 7}
+    sum := 0
+    // range returns (idx, val)
+    for _, n := range nums {
+        sum += n
+    }
+    fmt.Println("Range: Sum:", sum)
+
+    for i, n2 := range nums {
+        if n2 == 3 {
+            fmt.Println("Range: Index:", i)
+        }
+    }
+
+
+
+    fmt.Println()
 }
 
 func evalIfElseCondition() {
