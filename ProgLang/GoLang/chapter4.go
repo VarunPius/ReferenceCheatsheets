@@ -135,7 +135,7 @@ func evalMaps() {
     v1 := mp1["k1"]
     v3 := mp1["k3"]     // zero value if key not exists
     fmt.Println("Map Value:", v1, v3)
-    
+    fmt.Println("Map Get Length:", len(mp1))
 
 
     fmt.Println()
