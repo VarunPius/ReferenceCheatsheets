@@ -69,6 +69,16 @@ func evalRange() {
         }
     }
 
+    // range over map
+    kvs := map[string]string{"a": "apple", "b": "banana", "c": "chikoo"}
+    for k, v := range kvs {
+        fmt.Printf("%s -> %s\n", k, v)  // printF not printLN
+    }
+    for k:= range kvs {
+        fmt.Println("Range Map Key:", k)
+    }
+
+    //range over string
 
 
     fmt.Println()
