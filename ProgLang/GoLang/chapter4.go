@@ -137,6 +137,8 @@ func evalMaps() {
     fmt.Println("Map Value:", v1, v3)
     fmt.Println("Map Get Length:", len(mp1))
 
+    delete(mp1, "k2")
+    fmt.Println("Map delete key:", mp1)
 
     fmt.Println()
 }
