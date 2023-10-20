@@ -143,5 +143,11 @@ func evalMaps() {
     fmt.Println("Map clear key:", mp1)
 
 
+    // optional second return value when getting a value from a map to indicate if the key is present in the map
+    // This can be used to disambiguate between missing keys and keys with zero values like 0 or ""
+    // Here we didn’t need the value itself, so we ignored it with the blank identifier _.
+    _, mp_flag := mp1["k3"]
+    fmt.Println("Map present:", mp_flag)
+
     fmt.Println()
 }
