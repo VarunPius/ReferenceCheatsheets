@@ -132,5 +132,11 @@ func evalMaps() {
     mp1["k2"] = 2
     fmt.Println("Map:", mp1)
 
+    v1 := mp1["k1"]
+    v3 := mp1["k3"]     // zero value if key not exists
+    fmt.Println("Map Value:", v1, v3)
+    
+
+
     fmt.Println()
 }
