@@ -9,6 +9,7 @@ package main
 import (
     "fmt"
     //"slices"
+    "maps"
 )
 
 func chapter4() {
@@ -148,6 +149,15 @@ func evalMaps() {
     // Here we didn’t need the value itself, so we ignored it with the blank identifier _.
     _, mp_flag := mp1["k3"]
     fmt.Println("Map present:", mp_flag)
+
+    // Initialize non-empty map
+    mp2 := map[string]int{"foo": 1, "bar": 2}
+    mp3 := map[string]int{"foo": 1, "bar": 2}
+    if maps.Equal(mp2, mp3) {
+        fmt.Println("Maps are EQUAL")
+    } else {
+        fmt.Println("Maps NOT EQUAL")
+    }
 
     fmt.Println()
 }
