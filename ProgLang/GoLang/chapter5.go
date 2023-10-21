@@ -21,6 +21,9 @@ func chapter5() {
 
     f2 := plus2(3, 4, 5)
     fmt.Println("Function: F2", f2)
+
+    first_name, last_name := multi_return("Varun", "Pius", "Rodrigues")
+    fmt.Println("Function: Multiple return:", first_name, last_name)
 }
 
 func plus(a int, b int) int {
@@ -29,4 +32,9 @@ func plus(a int, b int) int {
 
 func plus2(a, b, c int) int {
     return a + b + c
+}
+
+// Multiple return values
+func multi_return(a, b, c string) (string, string) {
+    return a, c
 }
