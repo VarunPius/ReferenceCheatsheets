@@ -24,6 +24,9 @@ func chapter5() {
 
     first_name, last_name := multi_return("Varun", "Pius", "Rodrigues")
     fmt.Println("Function: Multiple return:", first_name, last_name)
+    fmt.Println()
+
+
 }
 
 func plus(a int, b int) int {
@@ -37,4 +40,13 @@ func plus2(a, b, c int) int {
 // Multiple return values
 func multi_return(a, b, c string) (string, string) {
     return a, c
+}
+
+// Variadic functions can be called with variable number of trailing arguments. eg: fmt.Println
+func variadic_sum(nums ...int)int {
+    fmt.Println("NUmbers:", nums)
+
+    for _, num := range nums {
+        
+    }
 }
