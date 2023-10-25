@@ -2,6 +2,7 @@
 Chapter 5:
     includes:
     - Functions
+    - Closures
 */
 
 package main
