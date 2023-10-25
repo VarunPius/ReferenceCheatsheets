@@ -6,7 +6,8 @@ func main() {
     //chapter2()
     //chapter3()
     //chapter4()
-    chapter5()
+    //chapter5()
+    chapter6()
 }
 
 
