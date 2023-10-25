@@ -47,7 +47,14 @@ func chapter5() {
     var fib func(n int) int
 
     // Since fib was previously declared in main, Go knows which function to call with fib here.
-    fib =  func()
+    fib =  func(n int) int {
+        if n < 2 {
+            return n
+        }
+        return fib(n - 1) + fib(n - 2)
+    }
+
+    fmt.Println("Recursive Closure: ", fib(14))
 }
 
 func plus(a int, b int) int {
