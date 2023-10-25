@@ -27,7 +27,9 @@ func chapter5() {
     fmt.Println()
 
     sum := variadic_sum(1,2,4,5,6)
-    fmt.Println("Sum:", sum)
+    nums_eg := []int{1, 2, 3, 4}
+    sum2 := variadic_sum(nums_eg...)    // slice applied to Variadic func 
+    fmt.Println("Sum:", sum, sum2)
 
 }
 
@@ -52,7 +54,6 @@ func variadic_sum(nums ...int)int {
     for _, num := range nums {
         sum += num
     }
-
 
     return sum
 
