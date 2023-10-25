@@ -39,6 +39,15 @@ func chapter5() {
     fmt.Println("Closure4: ", nextInt2())
     fmt.Println("Closure5: ", nextInt2())
 
+    fct := 7
+    fmt.Println("Factorial: ", fact(fct))
+
+    // Recursive using closures
+    // requires the closure to be declared with a typed var explicitly before it’s defined.
+    var fib func(n int) int
+
+    // Since fib was previously declared in main, Go knows which function to call with fib here.
+    fib =  func()
 }
 
 func plus(a int, b int) int {
