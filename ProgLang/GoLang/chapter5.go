@@ -31,6 +31,14 @@ func chapter5() {
     sum2 := variadic_sum(nums_eg...)    // slice applied to Variadic func 
     fmt.Println("Sum:", sum, sum2)
 
+    nextInt := intSeq()
+    fmt.Println("Closure1: ", nextInt())
+    fmt.Println("Closure2: ", nextInt())
+    fmt.Println("Closure3: ", nextInt())
+    nextInt2 := intSeq()
+    fmt.Println("Closure4: ", nextInt2())
+    fmt.Println("Closure5: ", nextInt2())
+
 }
 
 func plus(a int, b int) int {
