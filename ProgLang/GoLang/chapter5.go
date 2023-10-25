@@ -58,3 +58,12 @@ func variadic_sum(nums ...int)int {
     return sum
 
 }
+
+// Closures: anonymous functions
+func intSeq() func() int {
+    i := 0
+    return func() int {
+        i++
+        return i
+    }
+}
