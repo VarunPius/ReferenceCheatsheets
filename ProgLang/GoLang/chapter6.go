@@ -1,3 +1,9 @@
+/*
+Chapter 6:
+    includes:
+    - Pointers
+*/
+
 package main
 
 import (

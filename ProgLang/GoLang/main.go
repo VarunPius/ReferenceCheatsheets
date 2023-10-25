@@ -29,4 +29,5 @@ TOC:
     - Chapter 3: control structures
     - Chapter 4: Adv Data structures: arrays, slices, map
     - Chapter 5: Fucntions and closures
+    - Chapter 6: Pointers
 */
