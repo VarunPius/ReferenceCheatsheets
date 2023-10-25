@@ -20,3 +20,12 @@ When there is a `main` package, and a function `main` in your project, the compi
 
 So try to change package `main` inside the main.go file.
 */
+
+/*
+TOC:
+    - Chapter 1: Helloworld
+    - Chapter 2: Datatypes, variables and constants
+    - Chapter 3: control structures
+    - Chapter 4: Adv Data structures: arrays, slices, map
+    - Chapter 5: Fucntions and closures
+*/
