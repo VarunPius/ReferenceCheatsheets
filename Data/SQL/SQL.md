@@ -21,3 +21,11 @@ https://www.datacamp.com/tutorial/introduction-indexing-sql
 https://www.postgresqltutorial.com/postgresql-aggregate-functions/postgresql-string_agg-function/
 
 # UNNEST
+
+# first day or last day of the month:
+```sql
+-- last day
+SELECT
+    (DATE_TRUNC('month', '2017-01-05'::date) + INTERVAL '1 month' - INTERVAL '1 day')::date
+AS end_of_month;
+```
