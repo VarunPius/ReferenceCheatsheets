@@ -28,8 +28,18 @@ func chapter6() {
 
     fmt.Println("Pointer address:", &i)
 
+    // Pointer printing
+    p := &i
+    fmt.Println("P:", p)
+    fmt.Println("*P:", *p)      // will return value of obj pointer pointing to
 	fmt.Println()
 
+    // Pointer return
+    n := initPerson()
+    fmt.Println("N:", *n)
+    fmt.Println("N Address: ", n)
+
+	fmt.Println()
 }
 
 func zeroval(ival int) {
@@ -38,4 +48,10 @@ func zeroval(ival int) {
 
 func zeroptr(iptr *int) {
     *iptr = 0
+}
+
+func initPerson() *string {
+    name := "Varun"
+    fmt.Println("Name Inside: ", name)
+    return &name
 }
