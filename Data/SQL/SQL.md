@@ -29,3 +29,6 @@ SELECT
     (DATE_TRUNC('month', '2017-01-05'::date) + INTERVAL '1 month' - INTERVAL '1 day')::date
 AS end_of_month;
 ```
+
+# Partitioning vs clustering
+https://nidhig631.medium.com/partitioning-vs-clustering-126a8c3cb1ee
