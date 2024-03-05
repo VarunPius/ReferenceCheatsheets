@@ -8,7 +8,9 @@ func main() {
     //chapter4()
     //chapter5()
     //chapter6()
-    chapter7()
+    //chapter7()
+    chapter08()
+
 }
 
 
@@ -32,4 +34,5 @@ TOC:
     - Chapter 5: Functions and closures
     - Chapter 6: Pointers
     - Chapter 7: Strings and Runes
+    - Chapter 8: Structs
 */
