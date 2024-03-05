@@ -9,6 +9,7 @@ package main
 
 import (
     "fmt"
+    "unicode/utf8"
 )
 
 func chapter7() {
@@ -18,7 +19,9 @@ func chapter7() {
     fmt.Println()
 
     stringsExplanation()
+    fmt.Println()
     
+    runeEval()    
     fmt.Println()
 
 }
@@ -26,13 +29,14 @@ func chapter7() {
 /*
 String Fundamentals
 String formatting basics:
-%s − By using this we can print the uninterpreted strings or slice.
-%q − By using this we can print the string with double quotes.
-%x − By using this we can print the lower case character string with base 16.
-%X − By using this we can print the upper case character string with base 16.
+    %s − By using this we can print the uninterpreted strings or slice.
+    %q − By using this we can print the string with double quotes.
+    %x − By using this we can print the lower case character string with base 16.
+    %X − By using this we can print the upper case character string with base 16.
 */
 
 func stringsExplanation() {
+    fmt.Println("String Explanation:-------------------------------")
     const s = "Test String"
     fmt.Println("String1: str:", s)
     fmt.Println("String1: rune:", s[5])         // Will print the rune and not the char
@@ -89,7 +93,24 @@ func stringsExplanation() {
 }
 
 func runeEval() {
-    
+    fmt.Println("Rune Explanation:---------------------------------")
+    const s = "TestRune"
+
+    fmt.Println("Rune Length:", utf8.RuneCountInString(s))
+
+    for idx, runeVal := range s {
+        fmt.Printf("%#U starts at %d\n", runeVal, idx)
+        // %#U : U+0054 'T' starts at 0
+        // %U  : U+0054 starts at 0
+    }
+
+    s2 := "Hello, 世界"
+    for len(s2) > 0 {
+        runeVal, size := utf8.DecodeRuneInString(s2) // evaluates first character in string
+        fmt.Printf("%c is of length %d\n", runeVal, size)
+        s2 = s2[size:]
+    }
+
 }
 
 /*
