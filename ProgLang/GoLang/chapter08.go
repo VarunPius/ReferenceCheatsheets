@@ -13,27 +13,6 @@ import (
     "math"
 )
 
-type person struct {
-    name string
-    age int
-    salary int
-}
-
-func newPerson(name string) *person {
-    p := person{name: name}
-    p.age = 45
-    p.salary  = 10000
-    return &p
-}
-
-type rect struct {
-    width, height int
-}
-
-type circle struct {
-    radius float64
-}
-
 
 func chapter08() {
     fmt.Println("------------------------------------------------")
@@ -49,6 +28,20 @@ func chapter08() {
 
     interfaceExplanation()
     fmt.Println()
+}
+
+// Struct explanations:
+type person struct {
+    name string
+    age int
+    salary int
+}
+
+func newPerson(name string) *person {
+    p := person{name: name}
+    p.age = 45
+    p.salary  = 10000
+    return &p
 }
 
 func structExplanation() {
@@ -81,6 +74,15 @@ func structExplanation() {
     fmt.Println(dog)
 }
 
+// Method explanations:
+type rect struct {
+    width, height int
+}
+
+type circle struct {
+    radius float64
+}
+
 func methodExplanation() {
     // methods are defined on struct types.
     r := rect{width: 10, height: 5}
@@ -108,7 +110,7 @@ func (r rect) methodPerimeter() int {
     return 2 * (r.width + r.height)
 }
 
-// Interface methods
+// Interface explanations:
 // Interfaces are named collections of method signatures
 type geometry interface {
     area() float64
@@ -147,7 +149,7 @@ func interfaceExplanation() {
 
     measure(rp)
     measure(cp)
-    // if `area` and `perimeter` method binding is circle/rect instead of *circle/*rect;
+    // if `area` and `perimeter` receiver type is circle/rect instead of *circle/*rect;
     // then measure(r) or measure(c)
     // geometry will not be a pointer in any case: type *geometry is pointer to interface, not interface
 }
