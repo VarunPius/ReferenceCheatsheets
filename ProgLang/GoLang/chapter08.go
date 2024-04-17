@@ -4,6 +4,7 @@ Chapter 8:
     - Structs
     - Methods
     - Interface
+    - Struct Embeddings
 */
 
 package main
