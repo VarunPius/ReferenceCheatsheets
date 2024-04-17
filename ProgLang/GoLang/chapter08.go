@@ -2,30 +2,36 @@
 Chapter 8:
     includes:
     - Structs
-	- Methods
+    - Methods
+    - Interface
 */
 
 package main
 
 import (
     "fmt"
+    "math"
 )
 
 type person struct {
-	name string
-	age int
-	salary int
+    name string
+    age int
+    salary int
 }
 
 func newPerson(name string) *person {
-	p := person{name: name}
-	p.age = 45
-	p.salary  = 10000
-	return &p
+    p := person{name: name}
+    p.age = 45
+    p.salary  = 10000
+    return &p
 }
 
 type rect struct {
-	width, height int
+    width, height int
+}
+
+type circle struct {
+    radius float64
 }
 
 
@@ -35,65 +41,113 @@ func chapter08() {
     fmt.Println("------------------------------------------------")
     fmt.Println()
 
-	structExplanation()
-	fmt.Println()
+    structExplanation()
+    fmt.Println()
 
-	methodExplanation()
-	fmt.Println()
+    methodExplanation()
+    fmt.Println()
+
+    interfaceExplanation()
+    fmt.Println()
 }
 
 func structExplanation() {
-	fmt.Println(person{"Alexandra", 20, 2000})
-	fmt.Println(person{name: "Brian", age: 45, salary:4500})
-	fmt.Println(person{name: "Catherine", age: 28})	// Need to mention the parameter key if fewer values are passed
+    fmt.Println(person{"Alexandra", 20, 2000})
+    fmt.Println(person{name: "Brian", age: 45, salary:4500})
+    fmt.Println(person{name: "Catherine", age: 28})    // Need to mention the parameter key if fewer values are passed
 
-	fmt.Println(&person{name: "Damian", age: 32, salary: 5400})
-	// An & prefix yields a pointer to the struct.
+    fmt.Println(&person{name: "Damian", age: 32, salary: 5400})
+    // An & prefix yields a pointer to the struct.
 
-	// It’s idiomatic to encapsulate new struct creation in constructor functions
-	fmt.Println(newPerson("Eliza"))
+    // It’s idiomatic to encapsulate new struct creation in constructor functions
+    fmt.Println(newPerson("Eliza"))
 
-	f := person{"Frasier", 52, 25000}
-	fmt.Println(f.salary)	// Access struct fields with a dot.
-	fp := &f
-	fmt.Println(fp.age)	// can also use dots with struct pointers; the pointers are automatically dereferenced.
+    f := person{"Frasier", 52, 25000}
+    fmt.Println(f.salary)    // Access struct fields with a dot.
+    fp := &f
+    fmt.Println(fp.age)    // can also use dots with struct pointers; the pointers are automatically dereferenced.
 
-	fp.age = 65		// Structs are mutable
-	fmt.Println(fp)	// &{Frasier 65 25000}
-	fmt.Println(f)	// {Frasier 65 25000}
+    fp.age = 65        // Structs are mutable
+    fmt.Println(fp)    // &{Frasier 65 25000}
+    fmt.Println(f)    // {Frasier 65 25000}
 
-	dog := struct {
-		name string
-		isGood bool
-	}{
-		"Eclair",
-		true,
-	}
-	fmt.Println(dog)
+    dog := struct {
+        name string
+        isGood bool
+    }{
+        "Eclair",
+        true,
+    }
+    fmt.Println(dog)
 }
 
 func methodExplanation() {
-	// methods are defined on struct types.
-	r := rect{width: 10, height: 5}
+    // methods are defined on struct types.
+    r := rect{width: 10, height: 5}
 
-	// Methods can be defined for either pointer or value receiver types.
-	// Go automatically handles conversion between values and pointers for method calls.
-	// You may want to use a pointer receiver type to avoid copying on method calls or to allow the method to mutate the receiving struct.
+    // Methods can be defined for either pointer or value receiver types.
+    // Go automatically handles conversion between values and pointers for method calls.
+    // You may want to use a pointer receiver type to avoid copying on method calls or to allow the method to mutate the receiving struct.
 
-	fmt.Println("Value Receiver: Area:", r.area())
-	fmt.Println("Value Receiver: Perimeter:", r.perimeter())
+    fmt.Println("Value Receiver: Area:", r.methodArea())
+    fmt.Println("Value Receiver: Perimeter:", r.methodPerimeter())
 
-	rp := &r
-	fmt.Println("Pointer Receiver: Area:", rp.area())
-	fmt.Println("Pointer Receiver: Perimeter:", rp.perimeter())
+    rp := &r
+    fmt.Println("Pointer Receiver: Area:", rp.methodArea())
+    fmt.Println("Pointer Receiver: Perimeter:", rp.methodPerimeter())
 }
 
-func (r *rect) area() int {
-	// This method has a receiver type of *rect; in other words it has pointer receiver type
-	return r.width * r.height
+// Method
+func (r *rect) methodArea() int {
+    // This method has a receiver type of *rect; in other words it has pointer receiver type
+    return r.width * r.height
 }
 
-func (r rect) perimeter() int {
-	// Here’s an example of a value receiver.
-	return 2 * (r.width + r.height)
+func (r rect) methodPerimeter() int {
+    // Here’s an example of a value receiver.
+    return 2 * (r.width + r.height)
+}
+
+// Interface methods
+// Interfaces are named collections of method signatures
+type geometry interface {
+    area() float64
+    perimeter() float64
+}
+
+func (r *rect) area() float64 {
+    return float64(r.width * r.height)
+}
+
+func (r *rect) perimeter() float64 {
+    return float64(2 * (r.width + r.height))
+}
+
+func (c *circle) area() float64 {
+    return math.Pi * c.radius * c.radius
+}
+
+func (c *circle) perimeter() float64 {
+    return 2 * math.Pi * c.radius
+}
+
+func measure(g geometry) {
+    fmt.Println("Inside Measure")
+    fmt.Println("OG G: ", g)
+    fmt.Println("G Area: ", g.area())
+    fmt.Println("G Perimeter: ", g.perimeter())
+}
+
+func interfaceExplanation() {
+    r := rect{width: 15, height: 12}
+    c := circle{radius: 10}
+
+    rp := &r
+    cp := &c
+
+    measure(rp)
+    measure(cp)
+    // if `area` and `perimeter` method binding is circle/rect instead of *circle/*rect;
+    // then measure(r) or measure(c)
+    // geometry will not be a pointer in any case: type *geometry is pointer to interface, not interface
 }
