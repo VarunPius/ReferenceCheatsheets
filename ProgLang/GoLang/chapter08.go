@@ -28,6 +28,9 @@ func chapter08() {
 
     interfaceExplanation()
     fmt.Println()
+
+    structEmbedExplanation()
+    fmt.Println()
 }
 
 // Struct explanations:
@@ -152,4 +155,43 @@ func interfaceExplanation() {
     // if `area` and `perimeter` receiver type is circle/rect instead of *circle/*rect;
     // then measure(r) or measure(c)
     // geometry will not be a pointer in any case: type *geometry is pointer to interface, not interface
+}
+
+// Struct Embeddings explanation
+// Go supports embedding of structs and interfaces to express a more seamless composition of types
+
+type base struct {
+    num int
+}
+
+type container struct {
+    // A `container` embeds a `base`. An embedding looks like a field without a name.
+    base
+    str string
+}
+
+func (b base) describe() string {
+    return fmt.Sprintf("base with num=%v", b.num)
+}
+
+func structEmbedExplanation() {
+    co := container{
+        base: base{num: 1},
+        str: "random string",
+    }
+    // either end `str: "random string"` with } and if pushing to new line then end with ,
+    // Struct declarations end with } or if moving it to new line then add a comma at end to indicate still things to come
+
+    fmt.Printf("co={num: %v, str: %v}", co.num, co.str) // can access base's fields directly on co
+    fmt.Println("co = num:", co.base.num)    // can use full path
+    fmt.Println("describe: ", co.describe()) // Since container embeds base, the methods of base also become methods of a container.
+
+    type describer interface {
+        describe() string
+    }
+
+    var d describer = co
+    fmt.Println("Interface: ", d.describe())
+    // Embedding structs with methods may be used to bestow interface implementations onto other structs
+    // Here we see that a container now implements the describer interface because it embeds base.
 }
