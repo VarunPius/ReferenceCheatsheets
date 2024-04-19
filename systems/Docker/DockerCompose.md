@@ -157,6 +157,107 @@ volumes:
 ```
 In the above example, we have used an external volume for `html_files`, local volume for `redis_files` and `mysql_files`.
 
+## Types of volume mounts:
+Two types of volume management exists in Docker: volumes and bind mounts.
+- Bind mounts exist on the host file system and being managed by the host maintainer.
+  Applications / processes outside of Docker can also modify it.
+
+- Volumes can also be implemented on the host, but Docker will manage them for us and they can not be accessed outside of Docker.
+
+Volumes are a much wider solution. Although both solutions help us to separate the data lifecycle from containers, by using Volumes you gain much more power and flexibility over your system.
+
+With Volumes we can design our data effectively and decouple it from the host and other parts of the system by storing it dedicated remote locations (Cloud for example) and integrate it with external services like backups, monitoring, encryption and hardware management.
+
+More Volumes advantages over bind mounts:
+- No host concerns.
+- Can be managed using Docker CLI.
+Volumes can save you some uid/gid issues related permissions which occur in cases like when a container user's uid does not match the host `gid`.
+- A new volume’s contents can be pre-populated by a container.
+
+Here's 2 examples of each case:
+
+### Case 1: Bind Mounts - Web server.
+We want to provide our web server a configuration file that might change frequently.
+For example: exposing ports according to the current environment.
+We can rebuild the image each time with the relevant setup or create 2 different images for each environment.
+Both of this solutions aren’t very efficient.
+
+With **Bind mounts** Docker mounts the given source directory into a location inside the container.
+(The original directory / file in the read-only layer inside the union file system will simply be overridden).
+
+For example - binding a dynamic port to nginx:
+```yaml
+version: "3.7"
+services:
+  web:
+    image: nginx:alpine
+    volumes:
+     - type: bind #<-----Notice the type
+       source: ./mysite.template
+       target: /etc/nginx/conf.d/mysite.template
+    ports:
+     - "9090:8080"
+    environment:
+     - PORT=8080
+    command: /bin/sh -c "envsubst < /etc/nginx/conf.d/mysite.template > 
+        /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"
+```
+> Notice that this example could also be solved using Volumes.
+
+### Case 2 : Volumes - Databases.
+Docker containers do not store persistent data: any data that will be written to the writable layer in container’s union file system will be lost once the container stop running.
+
+But what if we have a database running on a container, and the container stops - that means that all the data will be lost?
+
+Volumes to the rescue.
+Those are named file system trees which are managed for us by Docker.
+
+For example - persisting Postgres SQL data:
+```
+services:    
+  db:
+    image: postgres:latest
+    volumes:
+      - "dbdata:/var/lib/postgresql/data"
+    volumes:
+     - type: volume #<-----Notice the type
+       source: dbdata
+       target: /var/lib/postgresql/data
+volumes:
+  dbdata:
+```
+
+Notice that in this case, for named volumes, the source is the name of the volume (For anonymous volumes, this field is omitted).
+
+
+How to identify reading a `docker-compose.yml` file whether it's a volumes or a bind mounts?
+There are various ways you can configure this, such as:
+- `./public:/usr/share/nginx/html`
+- `/var/lib/postgresql/data`
+- `/some/content:/usr/share/nginx/html`
+- `~/configs:/etc/configs`
+- `postgresql:/var/lib/postgresql/data`
+
+The volume configuration has a short syntax format that is defined as:
+```
+[SOURCE:]TARGET[:MODE]
+```
+
+The different variations are essentially three unique forms:
+
+**Type 1: No SOURCE**: eg. `/var/lib/postgresql/data`:
+  When only a target is specified, without a source, Docker Compose will create an anonymous directory and mount it as a volume to the target path inside the container.
+  The directory's path on the host system is by default /var/lib/docker/volumes/<uuid>/_data, where <uuid> is a random ID assigned to the volume as its name.
+
+**Type 2: A non-path SOURCE**: eg. `postgresql-data:/var/lib/postgresql/data`:
+  If a source is present and it's not a path, then Docker Compose assumes you're referring to a named volume. This volume needs to be declared in the same file in the top-level `volumes` key declaration (**top level** meaning as in outermost in yaml file. Such as: `version`, `services`, etc.).
+
+  Top-level `volumes` key always declares volumes, never bind mounts. Bind mounts don't have a name and they can't be named.
+
+**Type 3: A path SOURCE**: eg. `/some/content:/usr/share/nginx/html or ./public:/usr/share/nginx/html`:
+  If source is a path, absolute or relative, Docker Compose will bind mount the folder into the container. Relative paths starting with `.` or `..` are relative to the location of `docker-compose.yml`.
+
+
 # `networks` commands
 Running the command `docker network ls` will list out your current Docker networks; it should look similar to the following:
 ```
