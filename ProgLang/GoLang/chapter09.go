@@ -19,10 +19,15 @@ func chapter09() {
     fmt.Println("------------------------------------------------")
     fmt.Println()
 
-    v1, e1:= errorsExplanation1(12)
-    v2, e2:= errorsExplanation1(15)
-    fmt.Println("Errors1: Val: ", v1, v2)  //Errors1: Val:  17 -1
-    fmt.Println("Errors1: Err: ", e1, e2)  //Errors1: Err:  <nil> Can't work with 15
+    // errorsExplanation1 demonstration
+    for _, i := range []int{10, 12, 15} {
+        if retval, err := errorsExplanation1(i); err != nil{
+            fmt.Println("func1 failed", err)
+        } else {
+            fmt.Println("func1 worked", retval)
+        }
+
+    }
 
     fmt.Println()
     
