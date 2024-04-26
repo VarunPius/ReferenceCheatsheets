@@ -26,7 +26,6 @@ func chapter11() {
 
     channelBufferedExplanation()
     fmt.Println()
-
 }
 
 func channelsExplanation() {
@@ -35,17 +34,17 @@ func channelsExplanation() {
 
     fmt.Println("Channel Explanation 1")
     messages := make(chan string)    // Create a new channel with make(chan val-type). Channels are typed by the values they convey.
-    go func() { messages <- "Ping"}()    
-    go func() { messages <- "Ping2"}()    
+    go func() { messages <- "Ping"}()    // Send a value into a channel using the channel <- syntax
+    go func() { messages <- "Ping2"}()   // We send values from a new goroutine.
     go func() { messages <- "Ping3"}()    
 
-    msg := <- messages
+    msg := <- messages      // <-channel syntax receives a value from the channel
     msg2 := <- messages
     msg3 := <- messages
     fmt.Println("Message from channel: ", msg, msg2, msg3)    //Message from channel:  Ping3 Ping Ping2
     // By default sends and receives block until both the sender and receiver are ready.
     // This property allowed us to wait at the end of our program for the "ping" message without having to use any other synchronization.
-    // In the above example, every ping we sent we were able to send only because correesponding receive was available
+    // In the above example, every ping we sent we were able to send only because corresponding receive was available
     // ? Though i was able to send even if corresponding receive was not available. Maybe they changed in newer version
 }
 
@@ -58,11 +57,8 @@ func channelsExplanation2() {
     msg := <- messages
     //msg2 := <- messages       // We can't do this if only one message is sent in channel
 
-    fmt.Println("Message from channel: ", msg)
+    fmt.Println("Message from channel: ", msg)  // Message from channel:  Ping
     //fmt.Println("Message from channel: ", msg2)
-    /*
-    Message from channel:  Ping
-    */
 
     /*
     Also, sending messages are done within goroutine
