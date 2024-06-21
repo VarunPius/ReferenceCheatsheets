@@ -24,6 +24,9 @@ func chapter11() {
     channelsExplanation2()
     fmt.Println()
 
+    channelsExplanation3()
+    fmt.Println()
+
     channelBufferedExplanation()
     fmt.Println()
 }
@@ -42,6 +45,7 @@ func channelsExplanation() {
     msg2 := <- messages
     msg3 := <- messages
     fmt.Println("Message from channel: ", msg, msg2, msg3)    //Message from channel:  Ping3 Ping Ping2
+    
     // By default sends and receives block until both the sender and receiver are ready.
     // This property allowed us to wait at the end of our program for the "ping" message without having to use any other synchronization.
     // In the above example, every ping we sent we were able to send only because corresponding receive was available
@@ -74,6 +78,28 @@ func channelsExplanation2() {
     fmt.Println("Message from channel: ", msg)
 
     Even if the receiver is in the very next line, it fails
+    */
+}
+
+
+func channelsExplanation3() {
+    fmt.Println("Channel Explanation 3")
+
+    messages := make(chan string)
+    go func() { messages <- "Ping"}()    
+    go func() { messages <- "Ping2"}()    
+
+    msg := <- messages
+    fmt.Println("Message from channel: ", msg)  // Message from channel:  Ping2
+    
+    msg = <- messages
+    fmt.Println("Message from channel: ", msg)  // Message from channel:  Ping
+
+    /*
+    Sometimes, the order is inverted:
+    Channel Explanation 3
+    Message from channel:  Ping
+    Message from channel:  Ping2
     */
 }
 
