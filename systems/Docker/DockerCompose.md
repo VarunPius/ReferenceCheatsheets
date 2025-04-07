@@ -389,3 +389,16 @@ docker-compose down --volumes
 > **Note**:
 > Remember, we can create a image with a Dockerfile and use that image in the `services` section of the `docker-compose.yml`. Docker Compose services is not limited to existing ones. 
 
+## Starting only specific services
+Consider you have 3 different services, `web`, `db` and `cache` in a Docker compose file. If you want to start only part of the services, you do as follows:
+```
+docker compose up web db
+docker compose up db
+docker compose up cache
+```
+
+## Scaling services
+Consider you have 3 different services, `web`, `db` and `cache` in a Docker compose file. If you want to start multiple instances of part of the services, you do as follows:
+```
+docker compose up -d --scale web=3
+```
