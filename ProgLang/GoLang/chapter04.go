@@ -11,7 +11,7 @@ package main
 
 import (
     "fmt"
-    //"slices"
+    "slices"
     "maps"
 )
 
@@ -23,6 +23,7 @@ func chapter4() {
 
     evalArrays()
     evalSlices()
+    slicesDetailed()
     evalMaps()
 }
 
@@ -69,7 +70,7 @@ func evalSlices() {
 
     s_s = append(s_s, "d")
     s_s = append(s_s, "e")
-    fmt.Println("Slice Append:", s_s, ", Length: ", len(s_s))
+    fmt.Println("Slice Append:", s_s, ", Length: ", len(s_s), ", Capacity: ", cap(s_s))
 
 
     // Copy slice:
@@ -85,13 +86,15 @@ func evalSlices() {
     // "Slicing" or selecting subset
     s_part := s_c[2:5]                      // bounds should not exceed length limits else error
     fmt.Println("Slice: Part: ", s_part)
+    s_part[1] = "p"
     s_part2 := s_c[:4]
     s_part3 := s_c[3:]
-    fmt.Println("Slice: Part2: ", s_part2, s_part3)
+    fmt.Println("Slice: Part2: ", s_part, s_part2, s_part3) // s_c is affected by s_part value change
+                                                            // This is reflected in s_part2 and s_part3
 
 
     // Initialing slice at declaration:
-    i_1 := []int{1, 2, 3, 4}
+    i_1 := []int{1, 2, 3, 4}                // no size inside [] means it is not array
     fmt.Println("Slice: Init2: ", i_1)
 
 
@@ -106,14 +109,11 @@ func evalSlices() {
     }
     fmt.Println("2D Slice:", twoD)
 
-    /*
-    // Issue in importing in standard library
     // Slice packages:
     i_2 := []int{1, 2, 3, 4}
     if slices.Equal(i_1, i_2) {
         fmt.Println("Slices are equal")
     }
-    */
 
     fmt.Println()
 }
